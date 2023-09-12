@@ -2,7 +2,10 @@
 
 export const config = {
 
-    appName: "Shipper",
+    general: {
+        appName: "Shipper",
+
+    },
 
     // ### CUSTOMER SUPPORT
     support: {
@@ -40,6 +43,9 @@ export const config = {
         metas: {
             title: "Shipper App",
             description: "Ship faster with Shipper"
+        },
+        toasts: {
+            welcomeToastMessage: "Continua navegando"
         }
     }
 
