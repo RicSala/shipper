@@ -6,7 +6,9 @@ module.exports = {
     './components/**/*.{js,jsx}',
     './app/**/*.{js,jsx}',
     './src/**/*.{js,jsx}',
-	],
+    "./stories/**/*.{js,ts,jsx,tsx}",
+
+  ],
   theme: {
     container: {
       center: true,
@@ -65,10 +67,20 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        "anime": {
+          '0%': { backgroundPosition: '0% 50%' },
+          '50%': {
+            backgroundPosition: '100% 50%'
+
+          },
+          '100%':
+            { backgroundPosition: '0% 50%' }
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "anime": "anime 16s linear infinite"
       },
     },
   },

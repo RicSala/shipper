@@ -20,8 +20,6 @@ export default async function BlogPage({
             />
             <Separator className="my-5" />
             <PostGrid posts={posts} />
-
-
         </div>
     )
 };

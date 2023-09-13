@@ -16,23 +16,28 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useContext, useState } from "react";
 import { signIn } from 'next-auth/react';
-import { usePathname, useRouter } from "next/navigation";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+import { useRouter } from "next/navigation";
+import { Dialog, DialogContent } from "../ui/dialog";
 import { UiContext } from "@/providers/ui/ui-provider";
 import { useToast } from "../ui/use-toast";
-import { Separator } from "../ui/separator";
-import axios from "axios";
 import Spinner from "../icons/spinner";
 import { config } from "@/shipper.config";
+import { RegisterForm } from "../not-used/register-form";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import { Separator } from "../ui/separator";
+import GoogleIcon from "../icons/google-icon";
 
 
 
 const signInFormSchema = z.object({
-    email: z.string().min(5, {
-        message: "El nombre de usuario debe tener al menos 5 caracteres",
+    email: z.string().email({
+        message: "Debe ser un correo válido",
     }),
     password: z.string().min(6, {
         message: "La contraseña debe tener al menos 6 caracteres",
+    }),
+    magicLinkEmail: z.string().email({
+        message: "Debe ser un correo válido",
     }),
 })
 
@@ -55,296 +60,185 @@ export function LoginForm({
         {
             email: 'ricardo@google.com',
             password: '88888888',
+            magicLinkEmail: ''
         }
     });
 
-    const onSubmit = async (data) => {
+    const handleSignIn = async (signInOptions) => {
         setIsLoading(true);
-        return signIn('credentials', {
-            ...data,
-            callbackUrl: `${window.location.origin}/dashboard`,
-            redirect: false
-        }).then(
-            (response) => {
-                console.log({ response })
-                if (response.error) {
-                    toast({
-                        title: `Error al entrar`,
-                        description: "Tus credenciales parecen no ser correctas",
-                        variant: 'customDestructive'
-                    })
-                } else {
-                    router.refresh()
-                    setLoginModalOpen(false);
-                    setSidebarOpen(false)
-                    router.push("/dashboard")
-                    toast({
-                        title: "Bienvenido de nuevo",
-                        description: "Ya puedes guardar tus obras y artistas favoritos",
-                        variant: "success"
-                    })
-
+        try {
+            const response = await signIn(signInOptions.type, signInOptions.data);
+            if (response.error) {
+                toast({ ...signInOptions.errorToast });
+            } else {
+                router.refresh();
+                setLoginModalOpen(false);
+                setSidebarOpen(false);
+                toast({ ...signInOptions.successToast });
+                if (signInOptions.redirectPath) {
+                    router.push(signInOptions.redirectPath);
                 }
             }
-        ).catch((error) => {
-            console.log({ error })
+        } catch (error) {
             toast({
                 title: `Error al entrar`,
                 description: "Algo ha ocurrido. Por favor, inténtalo de nuevo",
                 variant: "destructive"
-            })
+            });
+        } finally {
+            setIsLoading(false);
         }
-        )
+    };
 
+    const onCredentialsSubmit = async (data) => {
+        handleSignIn({
+            type: 'credentials',
+            data: {
+                ...data,
+                callbackUrl: `${window.location.origin}/dashboard`,
+                redirect: false
+            },
+            redirectPath: "/dashboard",
+            successToast: {
+                title: config.strings.toasts.welcomeToastTitle,
+                description: config.strings.toasts.welcomeToastDescription,
+                variant: "success"
+            },
+            errorToast: {
+                title: `Error al entrar`,
+                description: "Tus credenciales parecen no ser correctas",
+                variant: 'customDestructive'
+            }
+        });
     }
 
 
+    const onMagicLinkClick = (data) => {
 
-    return (
-        <div className='flex flex-col gap-4'>
-            {/* <Heading
-            title="Bienvenido de nuevo"
-            subtitle="Accede a tu cuenta"
-        /> */}
-
-            <div className='text-center'>
-                <div className="text-2xl font-bold">Bienvenidx de nuevo</div>
-                <div className="mt-2 font-light text-neutral-500">Accede a tu cuenta</div>
-            </div>
-
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                    <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>e-mail</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="Aquí va tu email" {...field} />
-                                </FormControl>
-                                <FormDescription>
-                                    {`Email con el que te diste de alta en ${config.general.appName}`}
-                                </FormDescription>
-                                <FormMessage />
-                            </FormItem>
-                        )} />
-                    <FormField
-                        control={form.control}
-                        name="password"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Contraseña</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="Aquí va tu contraseña" {...field} type="password" />
-                                </FormControl>
-                                <FormDescription>
-                                    {`Si necesites ayuda, escríbenos a ${config.email.supportEmail}`}
-                                </FormDescription>
-                                <FormMessage />
-                            </FormItem>
-                        )} />
-                    <Button type="submit" disabled={form.formState.isSubmitting}>
-                        {
-                            form.formState.isSubmitting ?
-                                <div className="flex flex-row gap-2">
-                                    Entrando
-                                    <Spinner />
-                                </div>
-                                :
-                                `Entrar`
-                        }
-                    </Button>
-
-                </form>
-            </Form>
-
-            <Separator />
-            <div className="flex flex-col items-center space-y-2">
-                <h4>También puedes acceder con</h4>
-                <Button variant="outline" className="w-full"
-                    onClick={() => { signIn('google') }}
-                >
-                    {
-                        //TODO: review callback después de logearse con google 
-                    }
-                    Google
-                </Button>
-            </div>
-
-        </div>
-    );
-}
-
-
-
-const registerFormSchema = z.object({
-    email: z.string().min(2, {
-        message: "Username must be at least 2 characters.",
-    }),
-    name: z.string().min(2, {
-        message: "Username must be at least 2 characters.",
-    }),
-    password: z.string().min(2, {
-        message: "Password must be at least 2 characters.",
-    }),
-    confirmPassword: z.string().min(2, {
-        message: "Password must be at least 2 characters.",
-    }),
-})
-
-export function RegisterForm({
-
-}) {
-
-    const [isLoading, setIsLoading] = useState(false)
-    const router = useRouter()
-    const { toast } = useToast()
-
-    const { setSidebarOpen,
-        setLoginModalOpen,
-        setArtistRegisterOpen } = useContext(UiContext)
-
-    const form = useForm({
-        resolver: zodResolver(registerFormSchema),
-
-        defaultValues:
-        {
-            email: 'ricardo@google.com',
-            name: 'Ricardo Sala',
-            password: '88888888',
-            confirmPassword: '88888888'
-        }
-    });
-
-
-    const onSubmit = async (data) => {
-        setIsLoading(true);
-        axios.post('/api/register', data)
-            .then((res) => {
-                setLoginModalOpen(false);
-                setSidebarOpen(false)
-
-                toast({
-                    title: `Bienvenido a ${config.general.appName}`,
-                    description: `${config.strings.toasts.welcomeToastMessage}`
-                })
-                signIn('credentials', {
-                    email: data.email,
-                    password: data.password,
-                    // callbackUrl: `${window.location.origin}/dashboard`,
-                });
-            })
-            .catch((err) => {
-                toast({
-                    title: "Error creando usuario",
-                    description: "Por favor, inténtalo de nuevo",
-                    variant: "destructive"
-                })
-                console.log("ERROR:", err.response?.data.error);
-                console.log("ERROR:", err);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            })
+        console.log({ data })
+        handleSignIn({
+            type: 'email',
+            data: {
+                email: data.magicLinkEmail,
+                callbackUrl: `${window.location.origin}/`,
+                redirect: false
+            },
+            successToast: {
+                title: config.strings.toasts.linkSentToastTitle,
+                description: config.strings.toasts.linkSentToastDescription,
+                variant: "success"
+            },
+            errorToast: {
+                title: `Error al entrar`,
+                description: "Tus credenciales parecen no ser correctas",
+                variant: 'customDestructive'
+            }
+        });
     };
 
+    const renderFormField = (name, label, placeholder, description, type = "text") => (
+        <FormField
+            control={form.control}
+            name={name}
+            render={({ field }) => (
+                <FormItem>
+                    <FormLabel>{label}</FormLabel>
+                    <FormControl>
+                        <Input placeholder={placeholder} {...field} type={type} />
+                    </FormControl>
+                    <FormDescription>{description}</FormDescription>
+                    <FormMessage />
+                </FormItem>
+            )}
+        />
+    );
+
     return (
-        <div className='flex flex-col gap-4'>
-            {/* <Heading
-            title="Bienvenido de nuevo"
-            subtitle="Accede a tu cuenta"
-        /> */}
-
+        <div className='flex flex-col w-full gap-4'>
             <div className='text-center'>
-                <div className="text-2xl font-bold">{`Bienvenido a ${config.general.appName}`}</div>
-                <div className="mt-2 font-light text-neutral-500">Crea tu cuenta</div>
+                <div className="text-2xl font-bold">Bienvenidx</div>
+                <div className="mt-2 font-light text-neutral-500">Accede a tu cuenta</div>
             </div>
+            {
+                config.auth.authMethods.credentials &&
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onCredentialsSubmit)} className="space-y-8">
+                        {renderFormField("email", "e-mail", "Aquí va tu email", `Email con el que te diste de alta en ${config.general.appName}`)}
+                        {renderFormField("password", "Contraseña", "Aquí va tu contraseña", `Si necesites ayuda, escríbenos a ${config.email.supportEmail}`, "password")}
 
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-                    <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>e-mail</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="Aquí va tu email" {...field} />
-                                </FormControl>
-                                {/* <FormDescription>
-                                    Email con el que te diste de alta en TATTUO
-                                </FormDescription> */}
-                                <FormMessage />
-                            </FormItem>
-                        )} />
-                    <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Nombre</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="Aquí va tu nombre" {...field} />
-                                </FormControl>
-                                {/* <FormDescription>
-                                    Para hacer todo un poco más personal!
-                                </FormDescription> */}
-                                <FormMessage />
-                            </FormItem>
-                        )} />
-                    <FormField
-                        control={form.control}
-                        name="password"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Contraseña</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="Aquí va tu contraseña" {...field} type="password" />
-                                </FormControl>
-                                {/* <FormDescription>
-                                    Si no la recuerdas, escríbenos a hello@tattuo.com.
-                                </FormDescription> */}
-                                <FormMessage />
-                            </FormItem>
-                        )} />
-                    <FormField
-                        control={form.control}
-                        name="confirmPassword"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Confirma tu contraseña</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="Aquí va tu contraseña" {...field} type="password" />
-                                </FormControl>
-                                {/* <FormDescription>
-                                    Así te aseguras que la has escrito bien.
-                                </FormDescription> */}
-                                <FormMessage />
-                            </FormItem>
-                        )} />
-                    <Button type="submit">Registrar</Button>
+                        <Button type="submit" disabled={form.formState.isSubmitting}>
+                            {
+                                form.formState.isSubmitting || isLoading ?
+                                    <div className="flex flex-row gap-2">
+                                        Entrando
+                                        <Spinner />
+                                    </div>
+                                    :
+                                    `Entrar`
+                            }
+                        </Button>
 
-                </form>
-            </Form>
+                    </form>
+                </Form>
+            }
 
             <Separator />
-            <div className="flex flex-col items-center space-y-2">
-                <h4>También puedes acceder con</h4>
-                <Button variant="outline" className="w-full"
-                    onClick={() => { signIn('google') }}
-                >
-                    {
-                        //TODO: review callback después de logearse con google 
+            <div className="flex flex-col items-center w-full gap-10">
+                <div className="flex flex-col items-center w-full">
+
+                    <h2 className="relative">Email
+                        <TooltipProvider delayDuration={10}>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <div className="absolute -top-[3px] -right-[10px]  h-3 w-3 text-xs text-primary/60 flex items-center justify-center cursor-help">?</div>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>Te enviaremos un email con un link para contectarte <br />Así no necesitarás contraseña 😄</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                    </h2>
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onMagicLinkClick)} className="w-full">
+                            {renderFormField("magicLinkEmail", "", "tuemail@gmail.com")}
+
+                            <Button Button type="submit" disabled={form.formState.isSubmitting} className="w-full">
+                                {
+                                    form.formState.isSubmitting || isLoading ?
+                                        <div className="flex flex-row gap-2">
+                                            Entrando
+                                            <Spinner />
+                                        </div>
+                                        :
+                                        `Entrar`
+                                }
+                            </Button>
+                        </form>
+                    </Form>
+                </div>
+                <div>
+                    <Separator />
+                    <h2 className="mt-5 mb-5">También puedes acceder con</h2>
+                    {config.auth.authMethods.google &&
+                        <>
+                            <Button variant="outline" className="flex items-center w-full gap-2"
+                                onClick={() => { signIn('google') }}
+
+                            >
+                                {
+                                    //TODO: review callback después de logearse con google 
+                                }
+                                <GoogleIcon />
+                                Google
+                            </Button>
+                        </>
                     }
-                    Google
-                </Button>
+                </div>
             </div>
 
-        </div>
+        </div >
     );
 }
-
 
 
 export function LoginModal({
@@ -353,9 +247,6 @@ export function LoginModal({
 
     const { loginModalOpen, setLoginModalOpen, setArtistRegisterOpen } = useContext(UiContext)
     const [variantShown, setVariantShown] = useState(variant);
-    const pathName = usePathname()
-    const router = useRouter()
-
 
     return (
         <Dialog open={loginModalOpen}
@@ -374,13 +265,16 @@ export function LoginModal({
                 {
                     variantShown === "login" ?
                         <>
+
                             <div className="flex flex-col items-center space-y-2">
                                 <LoginForm />
-                                <p>¿No tienes cuenta? <Button
-                                    variant="ghost"
-                                    className="inline-block"
-                                    onClick={() => { setVariantShown('register') }}
-                                >¡Créala!</Button></p>
+                                {config.auth.authMethods.credentials &&
+                                    <p>¿No tienes cuenta? <Button
+                                        variant="ghost"
+                                        className="inline-block"
+                                        onClick={() => { setVariantShown('register') }}
+                                    >¡Créala!</Button></p>
+                                }
                             </div>
                         </>
                         :

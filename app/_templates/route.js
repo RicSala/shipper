@@ -7,7 +7,10 @@ export async function GET(request, { params }) {
 
 export async function HEAD(request) { }
 
-export async function POST(request) { }
+export async function POST(request) {
+
+    const body = await request.json()
+}
 
 export async function PUT(request) { }
 

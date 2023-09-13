@@ -3,6 +3,8 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import { LoginModal } from '@/components/modals/login-form'
 import { UiProvider } from '@/providers/ui/ui-provider'
+import { ThemeProvider } from '@/providers/ui/theme-provider'
+import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -37,10 +39,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <UiProvider>
-          <LoginModal />
-          {children}
-        </UiProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <UiProvider>
+            <LoginModal />
+            {children}
+          </UiProvider>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   )

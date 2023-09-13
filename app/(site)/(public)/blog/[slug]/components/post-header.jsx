@@ -1,8 +1,8 @@
 import ShareButtons from "@/components/share-buttons";
 import { Badge } from "@/components/ui/badge";
-import { format } from "date-fns";
 import Image from "next/image";
 import { es } from 'date-fns/esm/locale'
+import { format } from "date-fns";
 
 
 export default function PostHeader({ post }) {
