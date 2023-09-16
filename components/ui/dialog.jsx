@@ -32,6 +32,10 @@ DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
 const DialogContent = React.forwardRef(({ className, children, ...props }, ref) => (
   <DialogPortal>
     <DialogOverlay />
+    <div className="absolute -inset-x-1 inset-y-16 md:-inset-x-2 md:-inset-y-6">
+      asdf
+      <div className="w-full h-full max-w-5xl mx-auto rounded-3xl opacity-30 blur-lg filter z-[100]" style={{ background: "linear-gradient(90deg, #44ff9a -0.55%, #44b0ff 22.86%, #8b44ff 48.36%, #ff6644 73.33%, #ebff70 99.34%)" }}></div>
+    </div>
     <DialogPrimitive.Content
       ref={ref}
       className={cn(

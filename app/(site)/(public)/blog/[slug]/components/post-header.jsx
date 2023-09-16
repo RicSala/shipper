@@ -1,4 +1,3 @@
-import ShareButtons from "@/components/share-buttons";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { es } from 'date-fns/esm/locale'
@@ -39,10 +38,6 @@ export default function PostHeader({ post }) {
                         {format(new Date(post.date), 'PP', { locale: es })}
                     </p>
                 </div>
-                {/* TODO */}
-                {/* <div>
-                    <ShareButtons />
-                </div> */}
 
             </div>
         </div>

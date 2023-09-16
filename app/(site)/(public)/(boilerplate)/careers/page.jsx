@@ -1,5 +1,4 @@
 import Heading from "@/components/heading";
-import ContactForm from "@/components/landing/contact-form";
 import { Separator } from "@/components/ui/separator";
 import {
     Accordion,
@@ -8,6 +7,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Computer, HeartPulse, PaletteIcon } from "lucide-react";
+import ContactForm from "@/components/landing-sections/contact-form";
 
 
 export default async function page({

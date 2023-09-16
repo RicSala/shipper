@@ -1,5 +1,5 @@
 import Heading from "@/components/heading";
-import ContactForm from "@/components/landing/contact-form";
+import ContactForm from "@/components/landing-sections/contact-form";
 import { Separator } from "@/components/ui/separator";
 
 

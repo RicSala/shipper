@@ -31,7 +31,7 @@ function NavBar({
     // Create a navBar component that will be used in the layout.js file
     return (
         // <Container>
-        <div>
+        <div className="">
 
             <div className="fixed z-40 w-full shadow-sm bg-background text-foreground">
                 <div className="py-1 sm:py-4 border-b-[1px] border-border">
@@ -44,7 +44,7 @@ function NavBar({
                                     <NavMenu currentUser={currentUser} />
                                 </div>
                             </div>
-                            <div className="flex flex-row items-center justify-center gap-2">
+                            <div className="flex flex-row items-center justify-center gap-2 ">
                                 {
                                     currentUser ?
                                         <Avatar className="cursor-pointer"

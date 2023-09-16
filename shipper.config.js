@@ -7,6 +7,19 @@ export const config = {
 
     },
 
+    colors: {
+        primaryLight: 'zinc',
+        primaryDark: 'zinc',
+        secondaryLight: 'purple',
+        secondaryDark: 'purple',
+        accentLight: 'orange',
+        accentDark: 'orange',
+        destructiveLight: 'red',
+        destructiveDark: 'red',
+        mutedLight: 'grey',
+        mutedDark: 'grey',
+    },
+
     // ### CUSTOMER SUPPORT
     support: {
         cripsId: "",
@@ -31,6 +44,7 @@ export const config = {
         supportEmail: "ricardo@mg.shipper.com",
 
         forwardRepliesTo: "ricardo@grouz.io",
+        testSubdomain: "sandboxb2328a93eff54cb99ceee2827f1dcd16.mailgun.org",
     },
 
     // ### AUTH

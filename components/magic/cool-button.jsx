@@ -1,3 +1,6 @@
+'use client'
+
+import { sendEmail } from "@/lib/mailgun";
 import { cn } from "@/lib/utils";
 
 export default function CoolButton({
@@ -5,11 +8,24 @@ export default function CoolButton({
     children,
     onClick,
 }) {
+
+    const onCoolButtonClick = async () => {
+        await sendEmail(
+            "ricardo@grouz.io",
+            "hello from the code",
+            "this is pretty cool",
+            "<h1>It's me!</h1>",
+            "ricardo@ricardo.com"
+        )
+    }
+
+    onClick = onCoolButtonClick
+
     return (
         <div
             onClick={onClick}
             className={cn(`
-                    relative w-[300px] h-[100px] text-2xl text-center text-white rounded-full bg-[linear-gradient(-45deg,_#FFA63D,_#FF3D77,_#338AFF,_#3CF0C5)] bg-[size:600%] animate-anime flex items-center justify-center cursor-pointer isolate
+                    relative w-[300px] h-[100px] text-2xl text-center text-white rounded-full bg-custom-gradient bg-[size:600%] animate-anime flex items-center justify-center cursor-pointer isolate
                     `,
                 className
             )}>
@@ -17,7 +33,7 @@ export default function CoolButton({
             <p className="z-10 ">{children}</p>
 
             <div className={cn(`
-                        absolute -top-[10px] -z-1 blur-[30px] opacity-80  w-[300px] h-[100px] text-2xl text-center text-white rounded-full bg-[linear-gradient(-45deg,_#FFA63D,_#FF3D77,_#338AFF,_#3CF0C5)] bg-[size:600%] animate-anime flex items-center justify-center cursor-pointer
+                        absolute -top-[10px] -z-1 blur-[30px] opacity-80  w-[300px] h-[100px] text-2xl text-center text-white rounded-full bg-custom-gradient bg-[size:600%] animate-anime flex items-center justify-center cursor-pointer
                         `,
                 className
             )}>
