@@ -8,8 +8,11 @@ export const config = {
     },
 
     colors: {
-        primaryLight: 'zinc',
-        primaryDark: 'zinc',
+        backgroundLight: '0deg 55% 95%',
+        backgroundDark: '0deg 85% 15%',
+        primaryLight: 'red',
+        primaryDark: 'red',
+        lightThemeBackGround: 'red',
         secondaryLight: 'purple',
         secondaryDark: 'purple',
         accentLight: 'orange',
@@ -18,6 +21,8 @@ export const config = {
         destructiveDark: 'red',
         mutedLight: 'grey',
         mutedDark: 'grey',
+        infoLight: 'yellow',
+        infoDark: 'yellow',
     },
 
     // ### CUSTOMER SUPPORT

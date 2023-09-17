@@ -35,5 +35,8 @@ https://www.youtube.com/watch?v=aSlK3GhRuXA&ab_channel=Ravi-PerfectBase
 ** Fold
 ** Intellisense
 
+### Colors
+* Greys, Primary, Secondary?, Accent (is this the same as semantic?)
+
 
 

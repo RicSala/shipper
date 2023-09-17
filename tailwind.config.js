@@ -79,11 +79,19 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        accent: {
-          DEFAULT: "hsl(var(--primary-900) /0.1)",
-          foreground: "hsl(var(--primary))",
+        gray: {
+          ...colors.gray, DEFAULT: colors.gray['400'],
         },
-        ...generateColors(['primary', 'secondary', 'destructive', 'muted']),
+
+        success: {
+          ...colors.emerald, DEFAULT: colors.emerald['400'],
+
+        },
+        accent: {
+          ...colors.purple, DEFAULT: colors.purple['400'],
+
+        },
+        ...generateColors(['primary', 'info', 'secondary', 'destructive', 'muted']),
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -107,12 +115,18 @@ module.exports = {
           },
           '100%':
             { backgroundPosition: '0% 50%' }
+        },
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-3deg)' },
+          '50%': { transform: 'rotate(3deg)' },
         }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "anime": "anime 16s linear infinite"
+        "anime": "anime 16s linear infinite",
+        "wiggle": 'wiggle 1s ease-in-out infinite',
+
       },
 
       // CUSTOM
@@ -134,7 +148,9 @@ module.exports = {
         { name: 'primary', lightDefaultShade: '900', darkDefaultShade: '100', foregroundDefaultShade: '100' },
         { name: 'secondary', lightDefaultShade: '500', darkDefaultShade: '500', foregroundDefaultShade: '100' },
         // { name: 'accent', lightDefaultShade: '500',darkDefaultShade: '300', foregroundDefaultShade: '100' },
-        { name: 'destructive', lightDefaultShade: '500', darkDefaultShade: '500', foregroundDefaultShade: '50' }];
+        { name: 'destructive', lightDefaultShade: '500', darkDefaultShade: '500', foregroundDefaultShade: '50' },
+        { name: 'info', lightDefaultShade: '500', darkDefaultShade: '500', foregroundDefaultShade: '50' },
+      ]
       let shades = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
 
       let lightTheme = {};
@@ -158,14 +174,14 @@ module.exports = {
           // Adding defaults
           lightTheme[`--${name}`] = hexToHSL(colors[config.colors[`${name}Light`]][lightDefaultShade]);
           darkTheme[`--${name}`] = hexToHSL(colors[config.colors[`${name}Dark`]][darkDefaultShade]);
-          lightTheme[`--${name}-foreground`] = hexToHSL(colors[config.colors[`${name}Light`]][foregroundDefaultShade])
-          darkTheme[`--${name}-foreground`] = hexToHSL(colors[config.colors[`${name}Dark`]][foregroundDefaultShade])
+          lightTheme[`--${name}-foreground`] = hexToHSL(colors[config.colors[`${name}Light`]]['100'])
+          darkTheme[`--${name}-foreground`] = hexToHSL(colors[config.colors[`${name}Dark`]]['900'])
 
           theme('colors')[name].DEFAULT = `hsl(var(--${name}))`;
         });
 
-        lightTheme[`--background`] = hexToHSL(colors[config.colors[`primaryLight`]]['50']);
-        darkTheme[`--background`] = hexToHSL(colors[config.colors[`primaryDark`]]['900']);
+        lightTheme[`--background`] = config.colors.backgroundLight
+        darkTheme[`--background`] = config.colors.backgroundDark;
         theme('colors')['background'] = `hsl(var(--background))`;
       });
 

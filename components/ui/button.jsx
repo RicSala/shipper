@@ -36,7 +36,7 @@ const buttonVariants = cva(
 /**
  * Define the type of the prop object
  * @typedef {Object} ButtonPropTypes
- * @property {('default'|'destructive'|'outline'|'secondary'|'ghost'|'link'|'premium')} variant
+ * @property {('default'|'destructive'|'outline'|'secondary'|'ghost'|'link')} variant
  * @property {('default'|'sm'|'lg'|'icon')} size
  * @property {boolean} asChild
  * @property {React.ReactNode} children

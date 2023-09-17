@@ -1,5 +1,13 @@
 import { cn } from "@/lib/utils";
 
+/**
+ * Google Icon
+ * @param {Object} props
+ * @param {number} props.width
+ * @param {number} props.height
+ * @param {string} props.className
+ * @returns {JSX.Element}
+ */
 export default function GoogleIcon({
     width = 20,
     height = 20,
