@@ -1,6 +1,6 @@
-import { DiscIcon, GiftIcon, KeyIcon } from "lucide-react";
-import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
+import { GiftIcon } from "lucide-react";
+import { Button } from "./ui/button";
 
 export default function CtaWithSocial({
     accentText,
@@ -23,8 +23,8 @@ export default function CtaWithSocial({
             <div>
 
                 <p className="flex text-sm justify-center items-center gap-2">
-                    <GiftIcon className="animate-bounce text-secondary" />
-                    <spam className="text-secondary">
+                    <GiftIcon className="animate-bounce text-saccent" />
+                    <spam className="text-saccent">
                         {accentText}
                         &nbsp;
                         <spam className="text-primary">

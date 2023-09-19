@@ -9,6 +9,9 @@ import CoolText from '@/components/magic/cool-text'
 import { Button } from '@/components/ui/button'
 import { config } from '@/shipper.config'
 
+import DoodleArrow29 from '@/components/doodles/arrow-29'
+import ContactForm from '@/components/landing-sections/contact-form'
+import Hero from '@/components/landing-sections/hero'
 import {
   Select,
   SelectContent,
@@ -18,11 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import Page from '../_templates/page'
-import Hero from '@/components/landing-sections/hero'
-import ContactForm from '@/components/landing-sections/contact-form'
 import { Gamepad2 } from 'lucide-react'
-import DoodleArrow29 from '@/components/doodles/arrow-29'
 
 const colors = ['primary', 'destructive', 'secondary']
 const colorsFortesting = ['bg-primary-100', 'bg-destructive-100', 'bg-secondary-100']

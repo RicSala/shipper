@@ -1,6 +1,3 @@
-import colors from "tailwindcss/colors"
-import { generateColorVariables, hexToHSL } from "./lib/hex-to-hsl.js";
-import { config } from "./shipper.config.js";
 
 
 /** @type {import('tailwindcss').Config} */
@@ -15,87 +12,64 @@ module.exports = {
 
   ],
   theme: {
+
+    // used to customize the default container class provided by Tailwind CSS
+    // used to center and constrain the width of content in the layout.
     container: {
-      center: true,
+      center: true, // will center the container horizontally setting margin-left and margin-right to auto
       padding: "2rem",
       screens: {
-        "2xl": "1400px",
+        "2xl": "1400px", // sets the max-width of the container to 1400px on 2xl screens and up
       },
     },
+
     extend: {
+      // All colors are using vars, so they have to be changed in global.css
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        // primary: function () {
-        //   let customPrimaryColors = {};
-        //   let shades = ['foreground', '', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
-        //   shades.forEach((shade) => {
-        //     if (shade === '') {
-        //       customPrimaryColors.DEFAULT = `hsl(var(--primary))`;
-        //       return;
-        //     }
-        //     if (shade === 'foreground') {
-        //       customPrimaryColors.foreground = `hsl(var(--primary-foreground))`;
-        //       return;
-        //     }
-        //     customPrimaryColors[shade] = `hsl(var(--primary-${shade}))`;
-        //   });
-
-        //   return customPrimaryColors;
-        // }(),
-        // secondary: {
-        //   DEFAULT: "hsl(var(--secondary))",
-        //   foreground: "hsl(var(--secondary-foreground))",
-        // },
-        // destructive: {
-        //   DEFAULT: "hsl(var(--destructive))",
-        //   foreground: "hsl(var(--destructive-foreground))",
-        // },
+        border: "var(--border)",
+        input: "var(--input)",
+        ring: "var(--ring)",
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        primary: {
+          DEFAULT: "var(--primary)",
+          foreground: "var(--primary-foreground)",
+          focus: "var(--primary-focus)",
+        },
+        secondary: {
+          DEFAULT: "var(--secondary)",
+          foreground: "var(--secondary-foreground)",
+        },
+        destructive: {
+          DEFAULT: "var(--destructive)",
+          foreground: "var(--destructive-foreground)",
+          focus: "var(--destructive-focus)",
+        },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        // accent: function () {
-        //   let customAccentColors = {};
-        //   let shades = ['', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
-        //   shades.forEach((shade) => {
-        //     if (shade === '') {
-        //       customAccentColors.DEFAULT = `hsl(var(--accent))`;
-        //       return;
-        //     }
-        //     customAccentColors[shade] = `hsl(var(--accent-${shade}))`;
-        //   });
-
-        //   return customAccentColors;
-        // }(),
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
-        gray: {
-          ...colors.gray, DEFAULT: colors.gray['400'],
-        },
-
-        success: {
-          ...colors.emerald, DEFAULT: colors.emerald['400'],
-
+          DEFAULT: "var(--muted)",
+          foreground: "var(--muted-foreground)",
         },
         accent: {
-          ...colors.purple, DEFAULT: colors.purple['400'],
-
+          DEFAULT: "var(--accent)",
+          foreground: "var(--accent-foreground)",
         },
-        ...generateColors(['primary', 'info', 'secondary', 'destructive', 'muted']),
+        saccent: {
+          DEFAULT: "var(--saccent)",
+          foreground: "var(--saccent-foreground)",
+        },
+        popover: {
+          DEFAULT: "var(--popover)",
+          foreground: "var(--popover-foreground)",
+        },
+        card: {
+          DEFAULT: "var(--card)",
+          foreground: "var(--card-foreground)",
+        },
       },
+
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
+        lg: `var(--radius)`,
+        md: `calc(var(--radius) - 2px)`,
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
@@ -142,109 +116,5 @@ module.exports = {
   },
   plugins: [
     require("tailwindcss-animate"),
-
-    function ({ addBase, theme }) {
-      let colorsToGenerate = [
-        { name: 'primary', lightDefaultShade: '900', darkDefaultShade: '100', foregroundDefaultShade: '100' },
-        { name: 'secondary', lightDefaultShade: '500', darkDefaultShade: '500', foregroundDefaultShade: '100' },
-        // { name: 'accent', lightDefaultShade: '500',darkDefaultShade: '300', foregroundDefaultShade: '100' },
-        { name: 'destructive', lightDefaultShade: '500', darkDefaultShade: '500', foregroundDefaultShade: '50' },
-        { name: 'info', lightDefaultShade: '500', darkDefaultShade: '500', foregroundDefaultShade: '50' },
-      ]
-      let shades = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
-
-      let lightTheme = {};
-      let darkTheme = {};
-
-      colorsToGenerate.forEach(({ name, lightDefaultShade, darkDefaultShade, foregroundDefaultShade }) => {
-        shades.forEach((shade) => {
-
-          // Generate hsl from give tailwind colors
-          let lightColor = hexToHSL(colors[`${config.colors[name + 'Light']}`][shade]);
-          let darkColor = hexToHSL(colors[`${config.colors[name + 'Dark']}`][shade]);
-          console.log("HERE!!!", lightColor)
-
-          // Generate the color shades
-          lightTheme[`--${name}-${shade}`] = lightColor;
-          darkTheme[`--${name}-${shade}`] = darkColor;
-
-          // Asign the variable to the color shade
-          theme('colors')[name][shade] = `hsl(var(--${name}-${shade}))`;
-
-          // Adding defaults
-          lightTheme[`--${name}`] = hexToHSL(colors[config.colors[`${name}Light`]][lightDefaultShade]);
-          darkTheme[`--${name}`] = hexToHSL(colors[config.colors[`${name}Dark`]][darkDefaultShade]);
-          lightTheme[`--${name}-foreground`] = hexToHSL(colors[config.colors[`${name}Light`]]['100'])
-          darkTheme[`--${name}-foreground`] = hexToHSL(colors[config.colors[`${name}Dark`]]['900'])
-
-          theme('colors')[name].DEFAULT = `hsl(var(--${name}))`;
-        });
-
-        lightTheme[`--background`] = config.colors.backgroundLight
-        darkTheme[`--background`] = config.colors.backgroundDark;
-        theme('colors')['background'] = `hsl(var(--background))`;
-      });
-
-      // // adding defaults
-      // lightTheme[`--primary`] = hexToHSL(colors[config.colors.primaryLight][500])
-      // darkTheme[`--primary`] = hexToHSL(colors[config.colors.primaryDark][100])
-      // theme('colors')['primary'] = `hsl(var(--primary))`;
-
-      // lightTheme[`--primary-foreground`] = hexToHSL(colors[config.colors.primaryLight][500])
-      // darkTheme[`--primary-foreground`] = hexToHSL(colors[config.colors.primaryDark][500])
-      // theme('colors')['primary-foreground'] = `hsl(var(--primary-foreground))`;
-
-      // lightTheme[`--secondary`] = hexToHSL(colors[config.colors.secondaryLight][500])
-      // darkTheme[`--secondary`] = hexToHSL(colors[config.colors.secondaryDark][100])
-      // theme('colors')['secondary'] = `hsl(var(--secondary))`;
-
-      // lightTheme[`--accent`] = hexToHSL(colors[config.colors.accentLight][500])
-      // darkTheme[`--accent`] = hexToHSL(colors[config.colors.accentDark][500])
-      // theme('colors')['accent'] = `hsl(var(--accent))`;
-
-      // lightTheme[`--destructive`] = hexToHSL(colors[config.colors.destructiveLight][500])
-      // darkTheme[`--destructive`] = hexToHSL(colors[config.colors.destructiveDark][500])
-      // theme('colors')['destructive'] = `hsl(var(--destructive))`;
-
-      // lightTheme[`--destructive-foreground`] = hexToHSL(colors[config.colors.destructiveLight][100])
-      // darkTheme[`--destructive-foreground`] = hexToHSL(colors[config.colors.destructiveDark][100])
-      // theme('colors')['destructive'] = `hsl(var(--destructive))`;
-
-      addBase({
-        ':root': lightTheme,
-        '.dark': darkTheme
-      });
-    }
   ],
-}
-
-
-function generateColors(colorNames) {
-  const result = {};
-
-  colorNames.forEach(colorName => {
-    const customColors = {};
-    const shades = ['foreground', '', '0', '50', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
-
-    shades.forEach(shade => {
-      if (shade === '') {
-        customColors.DEFAULT = `hsl(var(--${colorName}))`;
-        return;
-      }
-      if (shade === 'foreground') {
-        customColors.foreground = `hsl(var(--${colorName}-foreground))`;
-        return;
-      }
-      if (shade === '0') {
-        customColors['0'] = `hsl(var(--${colorName}-${shade}))`;
-        return;
-      }
-      customColors[shade] = `hsl(var(--${colorName}-${shade}))`;
-    }
-    );
-
-    result[colorName] = customColors;
-  });
-
-  return result;
 }
