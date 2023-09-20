@@ -1,21 +1,21 @@
 'use client'
 
-import { LogOut, Menu } from "lucide-react";
-import { Button } from "../ui/button";
-import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "../ui/sheet";
-import { Separator } from "../ui/separator";
-import Logo from "./logo";
-import { useRouter } from "next/navigation";
-import { useContext, useState } from "react";
-import { signOut } from 'next-auth/react';
 import { UiContext } from "@/providers/ui/ui-provider";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import { LogOut, Menu } from "lucide-react";
+import { signOut } from 'next-auth/react';
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
 import MenuItem from "../menu-item";
+import { Button } from "../ui/button";
+import { Separator } from "../ui/separator";
+import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "../ui/sheet";
+import Logo from "./logo";
 import { clientMenuItems } from "./menu-items";
 
 
 export default function Sidebar({
-    currentUser
+    currentUser,
+    className,
 }) {
 
     const { setLoginModalOpen, sidebarOpen, setSidebarOpen, setArtistRegisterOpen } = useContext(UiContext)
@@ -29,17 +29,17 @@ export default function Sidebar({
     return (
         <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen} className="">
             <SheetTrigger asChild className="">
-                <div className="relative">
+                <div className="relative btn btn-ghost btn-circle">
                     <Menu className="cursor-pointer"
                         onClick={() => { setSidebarOpen(true) }} />
                     {
                         notifications ?
-                            <div className="absolute flex items-center justify-center w-4 h-4 text-xs text-white bg-red-500 rounded-full -top-1 -right-1"><p>1</p></div>
+                            <div className="absolute flex items-center justify-center w-4 h-4 text-2x text-white/70 bg-error rounded-full -top-0 -right-0"><p>1</p></div>
                             : null
                     }
                 </div>
             </SheetTrigger>
-            <SheetContent className={"flex flex-col justify-start"}>
+            <SheetContent className={"flex flex-col justify-start bg-base-100"}>
                 <div className="flex flex-col my-2">
                     <SheetHeader>
                         <SheetTitle asChild><Logo /></SheetTitle>
@@ -87,42 +87,7 @@ export default function Sidebar({
                             null
                     } */}
                     {
-                        <>
 
-                            {/* <Separator className="my-1" />
-                            <div className="relative">
-
-
-                                {
-                                    !currentUser ?
-                                        <TooltipProvider delayDuration={100}>
-
-                                            <Tooltip>
-                                                <TooltipTrigger asChild>
-                                                    <div className="absolute top-0 left-0 w-full h-full border rounded-md cursor-pointer border-accent bg-muted/50"
-                                                        onClick={() => {
-                                                            setLoginModalOpen(() => true)
-                                                        }}
-                                                    >
-                                                    </div>
-
-                                                </TooltipTrigger>
-                                                <TooltipContent>
-                                                    <div className="flex flex-col items-center justify-center">
-
-                                                        <p>Entra a tu cuenta para acceder</p>
-                                                        <CoolLoginButton />
-                                                    </div>
-
-                                                </TooltipContent>
-
-                                            </Tooltip>
-                                        </TooltipProvider>
-                                        :
-                                        null
-                                }
-                            </div> */}
-                        </>
 
                     }
 
@@ -145,6 +110,7 @@ export default function Sidebar({
                                 </Button>
                                 :
                                 <div className="flex flex-col justify-between">
+                                    <Separator />
                                     <div className="flex flex-col items-center space-y-3">
                                         <p>Para poder guardar tus favoritos y contactar con los artistas</p>
                                         <Button

@@ -15,7 +15,7 @@ export default function GoogleIcon({
 }) {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width={width} height={height} viewBox="0 0 50 50" className={cn(`
-                    text-primary/50 fill-primary/50
+                    text-primary-content fill-primary-content
                     `,
             className)
         }>

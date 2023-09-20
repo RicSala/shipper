@@ -1,8 +1,8 @@
+import { config } from "@/shipper.config";
+import { InstagramIcon } from "lucide-react";
 import Link from "next/link";
 import { Fragment } from "react";
 import { Separator } from "./ui/separator";
-import { InstagramIcon } from "lucide-react";
-import { config } from "@/shipper.config";
 
 
 const footterMenu = [
@@ -51,7 +51,7 @@ const footterMenu = [
 const Footer = (props) => {
 
     return (
-        <footer className="relative py-8 lg:py-12  border-t-[1px] border-border shadow-sm isolate">
+        <footer className="relative py-8 lg:py-12  border-t-[1px] border-base-300 shadow-sm isolate">
             <div className="w-[calc(100%_-_2.5rem)] lg:w-[calc(100%_-_4rem)] mx-auto max-w-5xl">
                 <nav>
                     <ul className="grid gap-8 lg:gap-12 sm:grid-cols-2 lg:grid-cols-4 ">
@@ -74,7 +74,7 @@ const Footer = (props) => {
                                                     return (
                                                         <div key={item.url}>
                                                             <Link href={item.url}
-                                                                className="text-sm text-primary lg:text-base"
+                                                                className="text-sm text-base-content lg:text-base"
                                                             >{item.label}</Link>
                                                         </div>
 
@@ -97,7 +97,7 @@ const Footer = (props) => {
                 <div className="flex flex-col gap-3 mt-12 lg:mt-20">
                     <div className="flex justify-center mt-3 lg:mt-5">
                         <Link href="#0"
-                            className="inline-block my-0 mx-1 lg:mx-1.5 text-primary"
+                            className="inline-block my-0 mx-1 lg:mx-1.5 text-base-content"
                             rel="nofollow"
                         >
                             <svg className="
@@ -105,21 +105,21 @@ const Footer = (props) => {
                         </Link>
 
                         <Link href="#0"
-                            className="inline-block my-0 mx-1 lg:mx-1.5 text-primary"
+                            className="inline-block my-0 mx-1 lg:mx-1.5 text-base-content"
                             rel="nofollow"
                         >
                             <svg className="icon h-[1em] w-[1em] inline-block text-inherit fill-current leading-none shrink-0" viewBox="0 0 16 16"><title>Follow us on Youtube</title><g><path d="M15.8,4.8c-0.2-1.3-0.8-2.2-2.2-2.4C11.4,2,8,2,8,2S4.6,2,2.4,2.4C1,2.6,0.3,3.5,0.2,4.8C0,6.1,0,8,0,8 s0,1.9,0.2,3.2c0.2,1.3,0.8,2.2,2.2,2.4C4.6,14,8,14,8,14s3.4,0,5.6-0.4c1.4-0.3,2-1.1,2.2-2.4C16,9.9,16,8,16,8S16,6.1,15.8,4.8z M6,11V5l5,3L6,11z"></path></g></svg>
                         </Link>
 
                         <Link href="#0"
-                            className="my-0 mx-1 lg:mx-1.5 text-primary flex flex-row items-center justify-center"
+                            className="my-0 mx-1 lg:mx-1.5 text-base-content flex flex-row items-center justify-center"
                             rel="nofollow"
                         >
                             <InstagramIcon width={15} height={15} />
                         </Link>
                     </div>
 
-                    <div className="flex flex-col gap-3 text-sm text-center lg:text-xs text-primary">
+                    <div className="flex flex-col gap-3 text-sm text-center lg:text-xs text-base-content">
                         <p>&copy; by RicSala</p>
 
                         <p className="flex justify-center gap-2 lg:gap-3">

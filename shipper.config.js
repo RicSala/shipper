@@ -19,7 +19,6 @@ export const config = {
         accentDark: 'orange',
         destructiveLight: 'red',
         destructiveDark: 'red',
-        mutedLight: 'grey',
         mutedDark: 'grey',
         infoLight: 'yellow',
         infoDark: 'yellow',

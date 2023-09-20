@@ -9,9 +9,11 @@ import CoolText from '@/components/magic/cool-text'
 import { Button } from '@/components/ui/button'
 import { config } from '@/shipper.config'
 
-import DoodleArrow29 from '@/components/doodles/arrow-29'
 import ContactForm from '@/components/landing-sections/contact-form'
+import { Faq } from '@/components/landing-sections/faq'
 import Hero from '@/components/landing-sections/hero'
+import Hero2 from '@/components/landing-sections/hero2'
+import { Input } from '@/components/ui/input'
 import {
   Select,
   SelectContent,
@@ -21,19 +23,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Gamepad2 } from 'lucide-react'
+import Stretcher from '@/components/utils/strecher'
 
-const colors = ['primary', 'destructive', 'secondary']
-const colorsFortesting = ['bg-primary-100', 'bg-destructive-100', 'bg-secondary-100']
-const graysForTesting = ['bg-gray', 'bg-gray-100', 'bg-gray-200', 'bg-gray-300', 'bg-gray-400', 'bg-gray-500', 'bg-gray-600', 'bg-gray-700', 'bg-gray-800', 'bg-gray-900']
-const primariesForTesting = ['bg-primary', 'bg-primary-100', 'bg-primary-200', 'bg-primary-300', 'bg-primary-400', 'bg-primary-500', 'bg-primary-600', 'bg-primary-700', 'bg-primary-800', 'bg-primary-900']
-const secondariesForTesting = ['bg-secondary', 'bg-secondary-100', 'bg-secondary-200', 'bg-secondary-300', 'bg-secondary-400', 'bg-secondary-500', 'bg-secondary-600', 'bg-secondary-700', 'bg-secondary-800', 'bg-secondary-900']
-const infoForTesting = ['bg-info', 'bg-info-100', 'bg-info-200', 'bg-info-300', 'bg-info-400', 'bg-info-500', 'bg-info-600', 'bg-info-700', 'bg-info-800', 'bg-info-900']
-const destructiveForTesting = ['bg-destructive', 'bg-destructive-100', 'bg-destructive-200', 'bg-destructive-300', 'bg-destructive-400', 'bg-destructive-500', 'bg-destructive-600', 'bg-destructive-700', 'bg-destructive-800', 'bg-destructive-900']
+import DoodleArrow29 from '@/components/doodles/arrow-29'
+import { ImageGround } from '@/components/utils/images'
+import tailwindConfig from "@/tailwind.config.js"
+import resolveConfig from "tailwindcss/resolveConfig"
 
-const successForTesting = ['bg-success', 'bg-success-100', 'bg-success-200', 'bg-success-300', 'bg-success-400', 'bg-success-500', 'bg-success-600', 'bg-success-700', 'bg-success-800', 'bg-success-900']
+const twConfig = resolveConfig(tailwindConfig);
+const theme = twConfig.theme;
 
-const accentForTesting = ['bg-accent', 'bg-accent-100', 'bg-accent-200', 'bg-accent-300', 'bg-accent-400', 'bg-accent-500', 'bg-accent-600', 'bg-accent-700', 'bg-accent-800', 'bg-accent-900']
+const colors = ["bg-primary", "bg-primary-focus", "bg-primary-content", "bg-secondary", "bg-secondary-focus", "bg-secondary-content", "bg-accent", "bg-accent-focus", "bg-accent-content", "bg-neutral", "bg-neutral-focus", "bg-neutral-content", "bg-base-100", "bg-base-200", "bg-base-300", "bg-base-content", "bg-info"]
 
 
 export default async function Home() {
@@ -42,15 +42,42 @@ export default async function Home() {
 
 
   return (
-    <main className="flex flex-col items-center justify-between min-h-screen md:p-24">
-      <div>
-        {JSON.stringify(user)}
+
+    // For spacing..
+    // gap-4 sm:gap-8 md:gap-16
+    // py-4 sm:py-8 md:py-16
+    // https://github.com/saadeghi/daisyui/blob/master/src/theming/themes.js
+    <main className="flex flex-col gap items-center justify-between min-h-screen">
+
+
+      {/* <TwBreaks /> */}
+      <Hero2 />
+
+
+      <div className='flex flex-col relative gap'>
+        {/* animate-[bounce_2s_ease-in-out_infinite] */}
+        <DoodleArrow29 className={'w-20 h-20 absolute rotate left-20 top-20 '} />
+        <h2>Colors</h2>
+        <div className='flex gap-5 flex-wrap'>
+          {
+            colors.map(color => (<div key={color} className={`${color} text-gray-400 w-40 h-20 rounded-full border border-neutral flex justify-center items-center`}>
+              {color.substring(3)}
+            </div>
+            ))
+
+          }
+        </div>
       </div>
 
-      <h1>
+      <h1 className='font-bricolage font-normal'>
         {config.general.appName}
       </h1>
-      <Pricing />
+
+      <Input />
+
+      <Stretcher className='bg-base-200 py-4 sm:py-8 md:py-16'>
+        <Pricing />
+      </Stretcher>
 
       <Testimonials1 />
 
@@ -72,17 +99,12 @@ export default async function Home() {
       />
 
       <div className='
-      text-primary
-      '>
-        hello
-      </div>
-      <div className='
       text-primary-300
       '>
         hello
       </div>
 
-      <Button className='' variant='destructive'>
+      <Button className='' variant=''>
         destructive!
       </Button>
 
@@ -103,110 +125,26 @@ export default async function Home() {
         </SelectContent>
       </Select>
 
-      <Hero />
+      <select className="select w-full max-w-xs select-bordered">
+        <option disabled>Pick your favorite Simpson</option>
+        <option>Homer</option>
+        <option>Marge</option>
+        <option>Bart</option>
+        <option>Lisa</option>
+        <option>Maggie</option>
+      </select>
+
+      <Stretcher className='bg-base-200'>
+        <Hero />
+      </Stretcher>
+
+      <Faq />
 
       <ContactForm />
 
-      <h2>Colors</h2>
-      <h3>Gray shades</h3>
-      <div className="flex gap-2">
-        {
-          graysForTesting.map((color) => {
-            return (
-              <div key={color} className={`h-12 w-12 ${color} rounded-full`}>
-              </div>
+      <ImageGround />
 
-            )
-          })
-        }
-      </div>
-      <h3>Primary shades</h3>
-      <div className="flex gap-2">
-        {
-          primariesForTesting.map((color) => {
-            return (
-              <div key={color} className={`h-12 w-12 ${color} rounded-full`}>
-              </div>
 
-            )
-          })
-        }
-      </div>
-      <h3>Secondary shades</h3>
-      <div className="flex gap-2">
-        {
-          secondariesForTesting.map((color) => {
-            return (
-              <div key={color} className={`h-12 w-12 ${color} rounded-full`}>
-              </div>
-
-            )
-          })
-        }
-      </div>
-      <div className="flex gap-2">
-        {
-          infoForTesting.map((color) => {
-            return (
-              <div key={color} className={`h-12 w-12 ${color} rounded-full`}>
-              </div>
-
-            )
-          })
-        }
-      </div>
-      <div className="flex gap-2">
-        {
-          destructiveForTesting.map((color) => {
-            return (
-              <div key={color} className={`h-12 w-12 ${color} rounded-full`}>
-              </div>
-
-            )
-          })
-        }
-      </div>
-      <div className="flex gap-2">
-        {
-          successForTesting.map((color) => {
-            return (
-              <div key={color} className={`h-12 w-12 ${color} rounded-full`}>
-              </div>
-
-            )
-          })
-        }
-      </div>
-      <div className="flex gap-2">
-        {
-          accentForTesting.map((color) => {
-            return (
-              <div key={color} className={`h-12 w-12 ${color} rounded-full`}>
-              </div>
-
-            )
-          })
-        }
-      </div>
-
-      <div className='bg-primary-400 h-20 w-20 relative'>
-        hello
-
-        <DoodleArrow29 className={'w-20 h-20 absolute rotate -left-20 -bottom-20 animate-[bounce_2s_ease-in-out_infinite]'} />
-
-      </div>
-
-      <div className='flex gap-2'>
-        {
-          colors.map(color => {
-            return (<div
-              key={color}
-              className={`w-14 h-14 rounded-full bg-${color}-100 justify-center items-center flex`}>
-              <Gamepad2 className={`text-${color}`} size={'28'} />
-            </div>)
-          })
-        }
-      </div>
-    </main>
+    </main >
   )
 }

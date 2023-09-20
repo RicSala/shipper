@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
-import Image from "next/image";
-import { es } from 'date-fns/esm/locale'
 import { format } from "date-fns";
+import { es } from 'date-fns/esm/locale';
+import Image from "next/image";
 
 
 export default function PostHeader({ post }) {
@@ -23,7 +23,7 @@ export default function PostHeader({ post }) {
                         <div className="absolute flex flex-wrap gap-2 bottom-2 right-2">
                             {
                                 tags.map((tag) => (
-                                    <Badge key={tag} className={"text-xs font-normal bg-primary/60"}>
+                                    <Badge key={tag} variant="default">
                                         {tag}
                                     </Badge>
                                 ))

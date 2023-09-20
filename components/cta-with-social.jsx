@@ -23,14 +23,14 @@ export default function CtaWithSocial({
             <div>
 
                 <p className="flex text-sm justify-center items-center gap-2">
-                    <GiftIcon className="animate-bounce text-saccent" />
-                    <spam className="text-saccent">
+                    <GiftIcon className="animate-bounce text-accent" />
+                    <span className="text-accent">
                         {accentText}
                         &nbsp;
-                        <spam className="text-primary">
+                        <span className="text-base-content">
                             {primaryText}
-                        </spam>
-                    </spam>
+                        </span>
+                    </span>
                 </p>
             </div>
         </div>

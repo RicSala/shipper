@@ -1,8 +1,8 @@
-
+const { generateBreakpoints } = require('./lib/dev-utils/twbreaks-plugin');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ["class"],
+  // darkMode: ["class"],
   content: [
     './pages/**/*.{js,jsx}',
     './components/**/*.{js,jsx}',
@@ -11,66 +11,35 @@ module.exports = {
     "./stories/**/*.{js,ts,jsx,tsx}",
 
   ],
+  // daisyUI config (optional)
+
+  daisyui: {
+    // Themes available. You can modify AND extend them: https://v2.daisyui.com/docs/themes/
+    themes: ["dark",
+      {
+        cupcake: {
+          ...require("daisyui/src/theming/themes")["[data-theme=cupcake]"],
+          "primary-content": "white"
+
+        },
+      }
+    ], // true: all themes | false: only light + dark | array: specific themes like this ["light", "dark", "cupcake"]
+    darkTheme: "dark", // name of one of the included themes for dark mode
+    base: true, // applies background color and foreground color for root element by default
+    styled: true, // include daisyUI colors and design decisions for all components
+    utils: true, // adds responsive and modifier utility classes
+    rtl: false, // rotate style direction from left-to-right to right-to-left. You also need to add dir="rtl" to your html tag and install `tailwindcss-flip` plugin for Tailwind CSS.
+    prefix: "", // prefix for daisyUI classnames (components, modifiers and responsive class names. Not colors)
+    logs: true, // Shows info about daisyUI version and used config in the console when building your CSS
+  },
   theme: {
 
-    // used to customize the default container class provided by Tailwind CSS
-    // used to center and constrain the width of content in the layout.
-    container: {
-      center: true, // will center the container horizontally setting margin-left and margin-right to auto
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px", // sets the max-width of the container to 1400px on 2xl screens and up
-      },
-    },
-
     extend: {
-      // All colors are using vars, so they have to be changed in global.css
-      colors: {
-        border: "var(--border)",
-        input: "var(--input)",
-        ring: "var(--ring)",
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        primary: {
-          DEFAULT: "var(--primary)",
-          foreground: "var(--primary-foreground)",
-          focus: "var(--primary-focus)",
-        },
-        secondary: {
-          DEFAULT: "var(--secondary)",
-          foreground: "var(--secondary-foreground)",
-        },
-        destructive: {
-          DEFAULT: "var(--destructive)",
-          foreground: "var(--destructive-foreground)",
-          focus: "var(--destructive-focus)",
-        },
-        muted: {
-          DEFAULT: "var(--muted)",
-          foreground: "var(--muted-foreground)",
-        },
-        accent: {
-          DEFAULT: "var(--accent)",
-          foreground: "var(--accent-foreground)",
-        },
-        saccent: {
-          DEFAULT: "var(--saccent)",
-          foreground: "var(--saccent-foreground)",
-        },
-        popover: {
-          DEFAULT: "var(--popover)",
-          foreground: "var(--popover-foreground)",
-        },
-        card: {
-          DEFAULT: "var(--card)",
-          foreground: "var(--card-foreground)",
-        },
-      },
 
-      borderRadius: {
-        lg: `var(--radius)`,
-        md: `calc(var(--radius) - 2px)`,
-        sm: "calc(var(--radius) - 4px)",
+      fontFamily: {
+        sans: ['var(--font-inter)'],
+        mono: ['var(--font-roboto-mono)'],
+        bricolage: ['var(--font-bricolage)'],
       },
       keyframes: {
         "accordion-down": {
@@ -116,5 +85,7 @@ module.exports = {
   },
   plugins: [
     require("tailwindcss-animate"),
+    require("daisyui"),
+    ({ addBase, theme }) => generateBreakpoints({ addBase, theme })
   ],
 }

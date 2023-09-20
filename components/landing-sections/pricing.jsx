@@ -1,6 +1,6 @@
-import { config } from "@/shipper.config"
-import { CheckoutButton } from "./check-out-button";
 import { getStripeInstance } from "@/lib/stripe";
+import { config } from "@/shipper.config";
+import { CheckoutButton } from "./check-out-button";
 
 const Pricing = async () => {
 
@@ -15,15 +15,15 @@ const Pricing = async () => {
     // console.log(plans[0].default_price.unit_amount)
 
     return (
-        <section className="overflow-hidden bg-base-200" id="pricing">
-            <div className="max-w-5xl px-8 py-24 mx-auto">
+
+        <section className="overflow-hidden w-full" id="pricing">
+            <div className="max-w-5xl px-8 mx-auto">
                 <div className="flex flex-col w-full mb-20 text-center">
                     <p className="mb-8 font-medium text-primary">Pricing</p>
-                    <h2 className="text-3xl font-bold tracking-tight lg:text-5xl">
+                    <h2 className="text-3xl font-bold tracking-tight lg:text-5xl font-bricolage">
                         Save hours of repetitive code and ship faster!
                     </h2>
                 </div>
-
                 <div className="relative flex flex-col items-center justify-center gap-8 lg:flex-row lg:items-stretch">
                     {plans.map((plan) => (
                         <div key={plan.id} className="relative w-full max-w-lg">
@@ -36,13 +36,11 @@ const Pricing = async () => {
                                     </span>
                                 </div>
                             )}
-
                             {/* {plan.featured && (
-                                <div
-                                    className={`absolute -inset-[1px] rounded-[9px] bg-primary z-10`}
-                                ></div>
-                            )} */}
-
+                                    <div
+                                        className={`absolute -inset-[1px] rounded-[9px] bg-primary z-10`}
+                                    ></div>
+                                )} */}
                             <div className="relative z-10 flex flex-col h-full gap-5 p-8 rounded-lg lg:gap-8 bg-base-100">
                                 <div className="flex items-center justify-between gap-4">
                                     <div>
@@ -90,7 +88,6 @@ const Pricing = async () => {
                                                         clipRule="evenodd"
                                                     />
                                                 </svg>
-
                                                 <span>{feature.name} </span>
                                             </li>
                                         ))}
@@ -98,7 +95,6 @@ const Pricing = async () => {
                                 )}
                                 <div className="space-y-2">
                                     <CheckoutButton priceId={plan.default_price.id} />
-
                                     <p className="relative flex items-center justify-center gap-2 text-sm font-medium text-center text-base-content/80">
                                         Pay once. Access forever.
                                     </p>

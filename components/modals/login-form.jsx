@@ -1,7 +1,5 @@
 'use client'
 
-import { useForm } from "react-hook-form";
-import { Input } from "../ui/input";
 import {
     Form,
     FormControl,
@@ -10,22 +8,24 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/form"
-import { Button } from "../ui/button";
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { useContext, useState } from "react";
+} from "@/components/ui/form";
+import { UiContext } from "@/providers/ui/ui-provider";
+import { config } from "@/shipper.config";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from 'next-auth/react';
 import { useRouter } from "next/navigation";
-import { Dialog, DialogContent } from "../ui/dialog";
-import { UiContext } from "@/providers/ui/ui-provider";
-import { useToast } from "../ui/use-toast";
+import { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 import Spinner from "../icons/spinner";
-import { config } from "@/shipper.config";
-import { RegisterForm } from "../not-used/register-form";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
-import { Separator } from "../ui/separator";
+import { Button } from "../ui/button";
+import { Dialog, DialogContent } from "../ui/dialog";
+import { Input } from "../ui/input";
+import { useToast } from "../ui/use-toast";
+// import { RegisterForm } from "../not-used/register-form";
 import GoogleIcon from "../icons/google-icon";
+import { Separator } from "../ui/separator";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 
 
 
@@ -144,7 +144,7 @@ export function LoginForm({
                 <FormItem>
                     <FormLabel>{label}</FormLabel>
                     <FormControl>
-                        <Input placeholder={placeholder} {...field} type={type} />
+                        <Input placeholder={placeholder} {...field} type={type} className="max-w-full text-center" />
                     </FormControl>
                     <FormDescription>{description}</FormDescription>
                     <FormMessage />
@@ -192,8 +192,8 @@ export function LoginForm({
                                 <TooltipTrigger asChild>
                                     <div className="absolute -top-[3px] -right-[10px]  h-3 w-3 text-xs text-primary/60 flex items-center justify-center cursor-help">?</div>
                                 </TooltipTrigger>
-                                <TooltipContent>
-                                    <p>Te enviaremos un email con un link para contectarte <br />Así no necesitarás contraseña 😄</p>
+                                <TooltipContent className="bg-base-200 text-base-content border-base-200 font-light">
+                                    <p className="font-sans text-base ">Te enviaremos un email con un link para contectarte <br />Así no necesitarás contraseña 😄</p>
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
@@ -279,7 +279,7 @@ export function LoginModal({
                         </>
                         :
                         <div className="flex flex-col items-center space-y-2">
-                            <RegisterForm />
+                            {/* <RegisterForm /> */}
                             <p>¿Ya tienes cuenta? <Button
                                 variant="ghost"
                                 className="inline-block"

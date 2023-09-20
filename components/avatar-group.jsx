@@ -33,7 +33,7 @@ export default function AvatarGroup({
                 )} src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=facearea&facepad=4&w=256&h=256&q=80" alt="" />
 
                 <div className={cn(`
-                            flex items-center justify-center w-10 h-10 text-sm rounded-full ring-2 md:ring-4 ring-white bg-primary/70 text-primary-foreground
+                            flex items-center justify-center w-10 h-10 text-sm rounded-full ring-2 md:ring-4 ring-white bg-primary/70 text-primary-content
                             `,
                     className
                 )}>+77</div>

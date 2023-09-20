@@ -33,7 +33,7 @@ export default function Toc({
         <div className="relative w-full max-w-sm mx-auto text-sm border-b sm:rounded-md sm:border sm:text-base sm:p-2 border-primary"
             ref={tocRef}
         >
-            <div className="flex items-center justify-between p-1 rounded-md cursor-pointer md:p-2 hover:bg-muted"
+            <div className="flex items-center justify-between p-1 rounded-md cursor-pointer md:p-2 hover:bg-base-200"
                 onClick={() => { setIsTocOpen((prev) => !prev) }}
             >
                 <p>Contenido</p>
@@ -41,15 +41,15 @@ export default function Toc({
             </div>
             <ul
                 id="toc-content"
-                className={cn(`absolute bg-background border rounded-lg w-full max-w-sm p-4 left-0`,
+                className={cn(`absolute bg-base-100 border rounded-lg w-full max-w-sm p-4 left-0`,
                     isTocOpen ? 'block' : 'hidden'
 
                 )}>
                 {
                     headings.map(heading => {
                         return (
-                            <li key={heading.link} className="p-1 rounded-md hover:bg-muted">
-                                <Link href={heading.link} className="block w-full h-full p-1 rounded-md hover:bg-muted" >
+                            <li key={heading.link} className="p-1 rounded-md hover:bg-base-200">
+                                <Link href={heading.link} className="block w-full h-full p-1 rounded-md hover:bg-base-200" >
                                     {heading.text}
                                 </Link>
                             </li>

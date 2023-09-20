@@ -43,7 +43,7 @@ const PostCard = ({
                             <div className="flex flex-wrap gap-2 mt-4">
                                 {
                                     tags.map((tag) => (
-                                        <Badge key={tag} tag={tag} className="font-normal bg-secondary text-secondary-foreground hover:bg-secondary/70 hover:text-secondary-foreground/70">
+                                        <Badge key={tag} tag={tag} className="font-normal bg-secondary text-secondary-content hover:bg-secondary/70 hover:text-secondary-content/70">
                                             {tag}
                                         </Badge>
                                     ))

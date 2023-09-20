@@ -1,12 +1,29 @@
-import { config } from '@/shipper.config'
-import './globals.css'
-import { Inter } from 'next/font/google'
 import { LoginModal } from '@/components/modals/login-form'
-import { UiProvider } from '@/providers/ui/ui-provider'
-import { ThemeProvider } from '@/providers/ui/theme-provider'
 import { Toaster } from '@/components/ui/toaster'
+import { ThemeProvider } from '@/providers/ui/theme-provider'
+import { UiProvider } from '@/providers/ui/ui-provider'
+import { config } from '@/shipper.config'
+import { Bricolage_Grotesque, Inter, Roboto_Mono } from 'next/font/google'
+import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+})
+
+const roboto_mono = Roboto_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-roboto-mono',
+})
+
+const bricolage = Bricolage_Grotesque({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-bricolage',
+})
+
 
 export const metadata = {
   title: {
@@ -25,7 +42,7 @@ export const metadata = {
   referrer: 'origin-when-cross-origin',
   keywords: ['Next.js', 'React', 'JavaScript'],
   authors: [{ name: 'Seb' }, { name: 'Josh', url: 'https://nextjs.org' }],
-  colorScheme: 'dark',
+  colorScheme: 'light',
   creator: 'Jiachi Liu',
   publisher: 'Sebastian Markbåge',
   formatDetection: {
@@ -37,9 +54,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${roboto_mono.variable} ${bricolage.variable} `}>
+      <body >
+        <ThemeProvider
+          // attribute="class"
+          defaultTheme="cupcake" enableSystem={false} disableTransitionOnChange>
           <UiProvider>
             <LoginModal />
             {children}

@@ -1,5 +1,6 @@
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
 
 export default function ContactForm(props) {
     return (
@@ -14,19 +15,19 @@ export default function ContactForm(props) {
                         <div className="p-2 w-1/2">
                             <div className="relative">
                                 <label htmlFor="name" className="leading-7 text-sm text-primary-300">Name</label>
-                                <Input type="text" id="name" name="name" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-primary-300 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                <Input type="text" id="name" name="name" />
                             </div>
                         </div>
                         <div className="p-2 w-1/2">
                             <div className="relative">
                                 <label htmlFor="email" className="leading-7 text-sm text-primary-300">Email</label>
-                                <Input type="email" id="email" name="email" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                <Input type="text" id="email" name="email" />
                             </div>
                         </div>
                         <div className="p-2 w-full">
                             <div className="relative">
                                 <label htmlFor="message" className="leading-7 text-sm text-primary-300">Message</label>
-                                <textarea id="message" name="message" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+                                <Textarea id="message" name="message" className="w-full textarea textarea-bordered text-base-content" />
                             </div>
                         </div>
                         <div className="p-2 w-full">

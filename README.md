@@ -38,5 +38,30 @@ https://www.youtube.com/watch?v=aSlK3GhRuXA&ab_channel=Ravi-PerfectBase
 ### Colors
 * Greys, Primary, Secondary?, Accent (is this the same as semantic?)
 
+Components
+https://www.landingfolio.com/
+
+Layouts
+https://layoutsfortailwind.lalokalabs.dev/
+https://tailblocks.cc/
+
+Section Layouts
+https://web.dev/one-line-layouts/
+
+doodles
+https://svgdoodles.com/
+https://www.figma.com/file/YC6OODsDqMKPJ4jjlCNcYF/Doodle-icons-(Community)?type=design&node-id=8-3019&mode=design&t=Bwo8OE7EPufxXGQ9-0
+
+blobs: https://app.haikei.app/
+
+tailwind Snippets
+https://snippets.alexandru.so/
+
+notion style icons
+https://www.overflow.design/ni.html
+
+Fonts
+https://fonts.google.com/?vfquery=brico&query=bricolage&vfonly=true
+
 
 

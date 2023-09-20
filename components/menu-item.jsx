@@ -16,7 +16,7 @@ const MenuItem = ({
                 sm:py-3
                 cursor-pointer
                 transition
-                hover:bg-accent
+                hover:bg-base-200
                 rounded
                 flex
                 gap-2
