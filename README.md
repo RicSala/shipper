@@ -57,8 +57,11 @@ blobs: https://app.haikei.app/
 tailwind Snippets
 https://snippets.alexandru.so/
 
+ICONS
 notion style icons
 https://www.overflow.design/ni.html
+https://feathericons.com/ -> https://github.com/feathericons/react-feather (this is the binding)
+
 
 Fonts
 https://fonts.google.com/?vfquery=brico&query=bricolage&vfonly=true

@@ -47,7 +47,9 @@ function NavBar({
     // Create a navBar component that will be used in the layout.js file
     return (
         // <Container>
-        <div className={`w-full sticky top-0 z-40  py-1 sm:py-4 ${scrolled ? 'shadow-sm' : null} bg-base-100 transition-shadow`}>
+        <div className={`w-full z-40 sticky top-0 ${scrolled ? 'shadow-sm' : null} bg-base-100 transition-shadow`}>
+            {/* py-1 sm:py-4 sticky top-0  */}
+            {/* <TopBar /> */}
             <Container>
                 <header className="flex flex-row items-center justify-between gap-3 md:gap-0 max-w-7xl mx-auto">
                     <div className="flex flex-row items-center justify-between gap-5">

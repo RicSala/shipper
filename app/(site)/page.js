@@ -1,5 +1,4 @@
 
-import { getCurrentUser } from '@/actions/getCurrentUser'
 import AvatarGroup from '@/components/avatar-group'
 import CtaWithSocial from '@/components/cta-with-social'
 import Pricing from '@/components/landing-sections/pricing'
@@ -26,6 +25,7 @@ import {
 import Stretcher from '@/components/utils/strecher'
 
 import DoodleArrow29 from '@/components/doodles/arrow-29'
+import Laurels from '@/components/social-proof/laurels'
 import { ImageGround } from '@/components/utils/images'
 import tailwindConfig from "@/tailwind.config.js"
 import resolveConfig from "tailwindcss/resolveConfig"
@@ -38,7 +38,6 @@ const colors = ["bg-primary", "bg-primary-focus", "bg-primary-content", "bg-seco
 
 export default async function Home() {
 
-  const user = await getCurrentUser()
 
 
   return (
@@ -52,6 +51,11 @@ export default async function Home() {
 
       {/* <TwBreaks /> */}
       <Hero2 />
+
+      <Laurels
+        laurelsClasses='fill-base-content/50'
+
+      />
 
 
       <div className='flex flex-col relative gap'>

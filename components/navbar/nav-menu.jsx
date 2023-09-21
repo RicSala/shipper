@@ -20,7 +20,7 @@ export function NavMenu({
 
                 <Link href="/tatuadores" legacyBehavior passHref>
                     <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                        Encuentra Tatuador
+                        Layouts
                     </NavigationMenuLink>
                 </Link>
 

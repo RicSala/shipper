@@ -1,9 +1,8 @@
-// import { getCurrentUser } from "@/actions/getCurrentUser";
 import { getCurrentUser } from "@/actions/getCurrentUser";
 import Container from "@/components/container";
 import Footer from "@/components/footer";
 import NavBar from "@/components/navbar/nav-bar";
-// export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 
 const SiteLayout = async ({ children }) => {
@@ -15,7 +14,7 @@ const SiteLayout = async ({ children }) => {
 
         <div className="flex flex-col justify-between min-h-screen">
             <NavBar currentUser={currentUser} />
-            <Container className={''}>
+            <Container className={'pt-2'}>
                 {/* <Container> */}
                 {children}
                 {/* </Container> */}

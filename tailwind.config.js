@@ -59,9 +59,13 @@ module.exports = {
           '100%':
             { backgroundPosition: '0% 50%' }
         },
-        wiggle: {
+        "wiggle": {
           '0%, 100%': { transform: 'rotate(-3deg)' },
           '50%': { transform: 'rotate(3deg)' },
+        },
+        "horizontal": {
+          '0%': { transform: '-translate-x-[100%]' },
+          '100%': { transform: 'translate-x-[100%]' },
         }
       },
       animation: {
@@ -69,6 +73,7 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
         "anime": "anime 16s linear infinite",
         "wiggle": 'wiggle 1s ease-in-out infinite',
+        "horizontal": 'horizontal 5s ease-in-out infinite',
 
       },
 

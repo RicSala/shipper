@@ -5,14 +5,10 @@ import prisma from "@/lib/prismadb";
 import { getServerSession } from "next-auth";
 
 
-export async function getSession() {
-    // @ts-ignore
-    return await getServerSession(authOptions) // Auth handles the session for us in both the client and server
-}
-
 export async function getCurrentUser() {
     try {
-        const session = await getSession();
+        // @ts-ignore
+        const session = await getServerSession(authOptions);
 
         if (!session?.user?.email) {
             return null;
