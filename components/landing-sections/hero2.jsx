@@ -1,55 +1,59 @@
-import { cn } from "@/lib/utils";
-import { Video } from "lucide-react";
-import Image from "next/image";
-import { Button } from "../ui/button";
+import { cn } from '@/lib/utils';
+import { Video } from 'lucide-react';
+import Image from 'next/image';
+import { Button } from '../ui/button';
 
-export default function Hero2({
-    className
-}) {
-    return (
-
-        <section className={cn(`
-                    flex flex-col gap-2 lg:flex-row items-center
+export default function Hero2({ className }) {
+  return (
+    <section
+      className={cn(
+        `
+                    flex flex-col items-center gap-2 lg:flex-row
                     `,
-            className
-        )}>
-            <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <div className="max-w-2xl mx-auto text-center">
-                    <h1 className="px-6 text-lg text-base-content/70 font-inter">Smart email campaign builder, made for Developers</h1>
-                    <p className="mt-5 text-4xl font-bold leading-tight text-base-content sm:leading-tight sm:text-5xl lg:text-6xl lg:leading-tight font-pj">
-                        Turn your visitors into profitable
-                        <span className="relative inline-flex sm:inline">
-                            <span className="bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] blur-lg filter opacity-30 w-full h-full absolute inset-0"></span>
-                            <span className="relative"> business </span>
-                        </span>
-                    </p>
+        className
+      )}
+    >
+      <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+        <div className='mx-auto max-w-2xl text-center'>
+          <h1 className='font-inter px-6 text-lg text-base-content/70'>
+            Smart email campaign builder, made for Developers
+          </h1>
+          <p className='font-pj mt-5 text-4xl font-bold leading-tight text-base-content sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight'>
+            Turn your visitors into profitable
+            <span className='relative inline-flex sm:inline'>
+              <span className='absolute inset-0 h-full w-full bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] opacity-30 blur-lg filter'></span>
+              <span className='relative'> business </span>
+            </span>
+          </p>
 
-                    <div className="px-8 items-center justify-center sm:px-0 sm:space-x-5 flex flex-wrap mt-9 gap-5">
-                        <Button
-                            href="#"
-                            className="flex"
-                        >
-                            Get more customers
-                        </Button>
+          <div className='mt-9 flex flex-wrap items-center justify-center gap-5 px-8 sm:space-x-5 sm:px-0'>
+            <Button href='#' className='flex'>
+              Get more customers
+            </Button>
 
-                        <Button
-                            variant="outline"
-                        >
-                            <Video />
-                            Watch free demo
-                        </Button>
-                    </div>
+            <Button variant='outline'>
+              <Video />
+              Watch free demo
+            </Button>
+          </div>
 
-                    <p className="mt-8 text-base text-base-content/70 font-inter">60 Days free trial · No credit card required</p>
-                </div>
-            </div>
+          <p className='font-inter mt-8 text-base text-base-content/70'>
+            60 Days free trial · No credit card required
+          </p>
+        </div>
+      </div>
 
-            <div className="rounded-lg overflow-hidden">
-                <div className="lg:max-w-6xl lg:mx-auto object-contain mx-auto">
-                    <Image className="mx-auto" width={700} height={700} src="https://cdn.rareblocks.xyz/collection/clarity/images/hero/2/illustration.png" alt="" />
-                </div>
-            </div>
-        </section>
-
-    );
+      <div className='overflow-hidden rounded-lg'>
+        <div className='mx-auto object-contain lg:mx-auto lg:max-w-6xl'>
+          <Image
+            className='mx-auto'
+            width={700}
+            height={700}
+            src='https://cdn.rareblocks.xyz/collection/clarity/images/hero/2/illustration.png'
+            alt=''
+          />
+        </div>
+      </div>
+    </section>
+  );
 }

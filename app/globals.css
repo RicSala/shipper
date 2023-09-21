@@ -4,12 +4,17 @@
 
 @layer base {
   :root {
-
-    --gradient-colors: linear-gradient(-45deg, #FFA63D, #FF3D77, #338AFF, #3CF0C5);
-
+    --gradient-colors: linear-gradient(
+      -45deg,
+      #ffa63d,
+      #ff3d77,
+      #338aff,
+      #3cf0c5
+    );
   }
 
-  .dark {}
+  .dark {
+  }
 }
 
 /* Use the @layer directive to tell Tailwind which “bucket” a set of custom
@@ -22,41 +27,42 @@
   * {
     @apply border-neutral;
     @apply font-bricolage;
-    @apply text-base
+    @apply text-base;
   }
 
   body {
     /* @apply bg-base-100 text-base-content; */
-    font-feature-settings: "rlig" 1, "calt" 1;
-
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
   }
 
   h1 {
-    @apply scroll-m-20 text-4xl font-extrabold tracking-tight
+    @apply scroll-m-20 text-4xl font-extrabold tracking-tight;
   }
 
   h2 {
-    @apply scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors mt-4
+    @apply mt-4 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors;
   }
 
   h2:first {
-    @apply mt-0
+    @apply mt-0;
   }
 
   h3 {
-    @apply scroll-m-20 text-2xl font-semibold tracking-tight
+    @apply scroll-m-20 text-2xl font-semibold tracking-tight;
   }
 
   h4 {
-    @apply scroll-m-20 text-xl font-semibold tracking-tight
+    @apply scroll-m-20 text-xl font-semibold tracking-tight;
   }
 
   p {
-    @apply leading-7
+    @apply leading-7;
   }
 
   p:not:first-child {
-    @apply mt-6
+    @apply mt-6;
   }
 
   [data-theme='dark'] .light {
@@ -68,7 +74,7 @@
   }
 
   .gap {
-    @apply gap-4 sm:gap-8 md:gap-16
+    @apply gap-4 sm:gap-8 md:gap-16;
   }
 }
 

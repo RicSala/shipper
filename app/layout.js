@@ -1,29 +1,28 @@
-import { LoginModal } from '@/components/modals/login-form'
-import { Toaster } from '@/components/ui/toaster'
-import { ThemeProvider } from '@/providers/ui/theme-provider'
-import { UiProvider } from '@/providers/ui/ui-provider'
-import { config } from '@/shipper.config'
-import { Bricolage_Grotesque, Inter, Roboto_Mono } from 'next/font/google'
-import './globals.css'
+import { LoginModal } from '@/components/modals/login-form';
+import { Toaster } from '@/components/ui/toaster';
+import { ThemeProvider } from '@/providers/ui/theme-provider';
+import { UiProvider } from '@/providers/ui/ui-provider';
+import { config } from '@/shipper.config';
+import { Bricolage_Grotesque, Inter, Roboto_Mono } from 'next/font/google';
+import './globals.css';
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
-})
+});
 
 const roboto_mono = Roboto_Mono({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-roboto-mono',
-})
+});
 
 const bricolage = Bricolage_Grotesque({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-bricolage',
-})
-
+});
 
 export const metadata = {
   title: {
@@ -50,15 +49,22 @@ export const metadata = {
     address: false,
     telephone: false,
   },
-}
+};
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${roboto_mono.variable} ${bricolage.variable} `}>
-      <body >
+    <html
+      lang='en'
+      suppressHydrationWarning
+      className={`${inter.variable} ${roboto_mono.variable} ${bricolage.variable} `}
+    >
+      <body>
         <ThemeProvider
           // attribute="class"
-          defaultTheme="cupcake" enableSystem={false} disableTransitionOnChange>
+          defaultTheme='cupcake'
+          enableSystem={false}
+          disableTransitionOnChange
+        >
           <UiProvider>
             <LoginModal />
             {children}
@@ -67,5 +73,5 @@ export default function RootLayout({ children }) {
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }

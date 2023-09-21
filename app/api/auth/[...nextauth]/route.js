@@ -5,7 +5,6 @@
 // import { PrismaAdapter } from '@next-auth/prisma-adapter';
 // import EmailProvider from "next-auth/providers/email";
 
-
 // import prisma from '@/lib/prismadb';
 // import { config } from '@/shipper.config';
 
@@ -14,7 +13,6 @@
 //     adapter: PrismaAdapter(prisma),
 
 //     providers: [
-
 
 //         GoogleProvider({
 //             clientId: process.env.GOOGLE_CLIENT_ID,
@@ -36,7 +34,6 @@
 //                 const user = await prisma.user.findUnique({
 //                     where: { email: credentials.email },
 //                 });
-
 
 //                 if (!user || !user?.hashedPassword) {
 //                     throw new Error('Invalid credentials');
@@ -96,7 +93,6 @@
 //         // to control if a user is allowed to sign in.
 //         async signIn(user, account, profile) {
 
-
 //             return true
 //         },
 //         // called anytime the user is redirected to a callback URL (e.g. on signin or signout).
@@ -109,9 +105,9 @@
 //         //   }
 
 //         // This callback is called whenever a JSON Web Token is created (i.e. at sign in) or
-//         // updated (i.e whenever a session is accessed in the client). The returned value will be encrypted, 
+//         // updated (i.e whenever a session is accessed in the client). The returned value will be encrypted,
 //         // and it is stored in a cookie.
-//         // The arguments user, account, profile and isNewUser are only passed the first time this callback 
+//         // The arguments user, account, profile and isNewUser are only passed the first time this callback
 //         // is called on a new session, after the user signs in. In subsequent calls, only token will be available.
 //         // whatever this callback returns will be the token that is stored in the cookie.
 //         async jwt({ token }) {
@@ -129,7 +125,6 @@
 //             //         }
 //             //     })
 
-
 //             //     token.artistProfileId = artistProfile.id
 //             // }
 //             // token.role = dbUser.role
@@ -137,8 +132,8 @@
 //         },
 
 //         // The session callback is called whenever a session is checked.
-//         // By default, only a subset of the token is returned for increased security. 
-//         // If you want to make something available you added to the token (like access_token and user.id from above) 
+//         // By default, only a subset of the token is returned for increased security.
+//         // If you want to make something available you added to the token (like access_token and user.id from above)
 //         // via the jwt() callback, you have to explicitly forward it here to make it available to the client.
 //         // When using database sessions, the User (user) object is passed as an argument.
 //         // When using JSON Web Tokens for sessions, the JWT payload (token) is provided instead.
@@ -182,90 +177,86 @@
 //     // as it'll already have the session available. In this way, you can provide a more seamless user experience.
 //     // https://next-auth.js.org/tutorials/securing-pages-and-api-routes
 
-
 // }
 
 // const handler = NextAuth(authOptions);
 
 // export { handler as GET, handler as POST }
 
-
-
-
-import NextAuth from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
-import EmailProvider from "next-auth/providers/email";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import prisma from "@/lib/prismadb";
-import { config } from "@/shipper.config";
+import NextAuth from 'next-auth';
+import GoogleProvider from 'next-auth/providers/google';
+import EmailProvider from 'next-auth/providers/email';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import prisma from '@/lib/prismadb';
+import { config } from '@/shipper.config';
 
 export const authOptions = {
-    // Set any random key in .env.local
-    secret: process.env.NEXTAUTH_SECRET,
+  // Set any random key in .env.local
+  secret: process.env.NEXTAUTH_SECRET,
 
-    providers: [
-        GoogleProvider({
-            // Follow the "Login with Google" tutorial to get your credentials
-            clientId: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            async profile(profile) {
-                return {
-                    id: profile.sub,
-                    name: profile.given_name ? profile.given_name : profile.name,
-                    email: profile.email,
-                    image: profile.picture,
-                    createdAt: new Date(),
-                };
-            },
-        }),
-        // Follow the "Login with Email" tutorial to set up your email server
+  providers: [
+    GoogleProvider({
+      // Follow the "Login with Google" tutorial to get your credentials
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      async profile(profile) {
+        return {
+          id: profile.sub,
+          name: profile.given_name ? profile.given_name : profile.name,
+          email: profile.email,
+          image: profile.picture,
+          createdAt: new Date(),
+        };
+      },
+    }),
+    // Follow the "Login with Email" tutorial to set up your email server
 
-        EmailProvider({
-            server: {
-                host: process.env.SMTP_HOST,
-                port: Number(process.env.SMTP_PORT),
-                auth: {
-                    user: process.env.SMTP_USER,
-                    pass: process.env.SMTP_PASSWORD,
-                },
-            },
-            from: config.email.fromNoReply,
-        })
-
-        // EmailProvider({
-        //     server: process.env.EMAIL_SERVER,
-        //     from: "ricardo@google.com",
-        // }),
-    ],
-    // New users will be saved in Database (MongoDB Atlas). Each user (model) has some fields like name, email, image, etc.. Learn more about the model type: https://next-auth.js.org/v3/adapters/models
-    adapter: PrismaAdapter(prisma),
-
-    // custom pages
-    pages: {
-        signIn: '/',
-        newUser: '/', // New users will be directed here on first sign in
-    },
-
-    //   adapter: MongoDBAdapter(connectMongo),
-    callbacks: {
-        session: async ({ session, token }) => {
-            if (session?.user) {
-                session.user.id = token.sub;
-            }
-            return session;
+    EmailProvider({
+      server: {
+        host: process.env.SMTP_HOST,
+        port: Number(process.env.SMTP_PORT),
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASSWORD,
         },
+      },
+      from: config.email.fromNoReply,
+    }),
+
+    // EmailProvider({
+    //     server: process.env.EMAIL_SERVER,
+    //     from: "ricardo@google.com",
+    // }),
+  ],
+  // New users will be saved in Database (MongoDB Atlas). Each user (model) has some fields like name, email, image, etc.. Learn more about the model type: https://next-auth.js.org/v3/adapters/models
+  adapter: PrismaAdapter(prisma),
+
+  // custom pages
+  pages: {
+    signIn: '/',
+    newUser: '/', // New users will be directed here on first sign in
+  },
+
+  //   adapter: MongoDBAdapter(connectMongo),
+  callbacks: {
+    session: async ({ session, token }) => {
+      if (session?.user) {
+        session.user.id = token.sub;
+      }
+      return session;
     },
-    session: {
-        strategy: "jwt",
-    },
-    // theme: {
-    //     brandColor: config.colors.main,
-    //     // Add you own logo below. Recommended size is rectangle (i.e. 200x50px) and show your logo + name.
-    //     // It will be used in the login flow to display your logo. If you don't add it, it will look faded.
-    //     logo: `https://${config.domainName}/logoAndName.png`,
-    // },
+  },
+  session: {
+    strategy: 'jwt',
+  },
+  // theme: {
+  //     brandColor: config.colors.main,
+  //     // Add you own logo below. Recommended size is rectangle (i.e. 200x50px) and show your logo + name.
+  //     // It will be used in the login flow to display your logo. If you don't add it, it will look faded.
+  //     logo: `https://${config.domainName}/logoAndName.png`,
+  // },
 };
 
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST }
+export { handler as GET, handler as POST };

@@ -1,138 +1,124 @@
-import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]/route";
-import prisma from "@/lib/prismadb";
-import { createCheckout, getStripeInstance } from "@/lib/stripe";
-import { headers } from 'next/headers'
-import { config } from "@/shipper.config";
-
-
+import { NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../../auth/[...nextauth]/route';
+import prisma from '@/lib/prismadb';
+import { createCheckout, getStripeInstance } from '@/lib/stripe';
+import { headers } from 'next/headers';
+import { config } from '@/shipper.config';
 
 export async function POST(request) {
+  const stripe = await getStripeInstance();
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  const body = await request.text();
+  const headersList = headers();
+  const signature = headersList.get('stripe-signature');
 
-    const stripe = await getStripeInstance()
-    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
-    const body = await request.text()
-    const headersList = headers()
-    const signature = headersList.get('stripe-signature')
+  let event;
+  try {
+    event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      { error: 'Could verify signature' },
+      { status: 500 }
+    );
+  }
 
+  console.log(event.type);
+  try {
+    switch (event.type) {
+      case 'checkout.session.completed': {
+        const session = event.data.object;
+      }
+      case 'checkout.session.completed': {
+        const sessionId = event.data.object.id;
+        console.log(event.data.object);
+        console.log({ sessionId });
+        const stripe = await getStripeInstance();
+        const session = await stripe.checkout.sessions.retrieve(sessionId, {
+          expand: ['line_items'],
+        });
+        console.log('this', session);
+        const customerId = session?.customer;
+        const productId = session?.line_items?.data[0]?.price.product;
+        const priceId = session?.line_items?.data[0]?.price.id;
+        const userId = session.client_reference_id;
+        const userEmail = session.customer_details.email;
+        const userName = session.customer_details.name;
+        const plan = config.productIds.find((p) => p === productId);
 
-    let event
-    try {
-        event = stripe.webhooks.constructEvent(
-            body,
-            signature,
-            webhookSecret
-        );
-    } catch (error) {
-        console.log(error)
-        return NextResponse.json({ error: 'Could verify signature' }, { status: 500 })
-    }
-
-    console.log(event.type)
-    try {
-        switch (event.type) {
-
-            case "checkout.session.completed": {
-                const session = event.data.object
-            }
-            case "checkout.session.completed": {
-                const sessionId = event.data.object.id
-                console.log(event.data.object)
-                console.log({ sessionId })
-                const stripe = await getStripeInstance();
-                const session = await stripe.checkout.sessions.retrieve(sessionId, {
-                    expand: ["line_items"],
-                });
-                console.log("this", session)
-                const customerId = session?.customer;
-                const productId = session?.line_items?.data[0]?.price.product;
-                const priceId = session?.line_items?.data[0]?.price.id;
-                const userId = session.client_reference_id
-                const userEmail = session.customer_details.email
-                const userName = session.customer_details.name
-                const plan = config.productIds.find(
-                    (p) => p === productId
-                );
-
-                if (!plan) {
-                    console.log("no se encuentra producto")
-                    break
-                };
-
-                console.log({ plan })
-                console.log({ userId })
-                if (!userId && !userEmail) {
-                    console.log("no se encuentra usuario")
-                    break
-                }
-
-                let user;
-
-                if (userId) {
-                    // with prisma, find the user with id = userId
-                    user = await prisma.user.findUnique({
-                        where: {
-                            id: userId
-                        }
-                    })
-                } else if (userEmail) {
-                    // with prisma, create a new user iwth email = userEmail and name = userName
-                    user = await prisma.user.create({
-                        data: {
-                            email: userEmail,
-                            name: userName,
-                        }
-                    })
-                }
-
-                console.log({ user })
-
-                // TODO: More business logic could be necesary (one off payments vs subscriptins, monthly vs yearly, credit systems...)
-
-                // save it in the database
-                await prisma.user.update({
-                    where: {
-                        id: user.id,
-                    },
-                    data: {
-                        priceId: priceId,
-                        productId: productId,
-                        customerId: customerId,
-                    },
-                });
-
-                console.log("SUCCESS!!!")
-
-
-            }
-            case "customer.created": {
-                const session = event.data.object
-                // console.log({ session })
-            }
-            case "charge.succeeded": {
-                const session = event.data.object
-            }
-
+        if (!plan) {
+          console.log('no se encuentra producto');
+          break;
         }
-    } catch (error) {
-        console.log(error)
-        return NextResponse.json({ error: 'Something failed while updating plan on DB' }, { status: 500 })
+
+        console.log({ plan });
+        console.log({ userId });
+        if (!userId && !userEmail) {
+          console.log('no se encuentra usuario');
+          break;
+        }
+
+        let user;
+
+        if (userId) {
+          // with prisma, find the user with id = userId
+          user = await prisma.user.findUnique({
+            where: {
+              id: userId,
+            },
+          });
+        } else if (userEmail) {
+          // with prisma, create a new user iwth email = userEmail and name = userName
+          user = await prisma.user.create({
+            data: {
+              email: userEmail,
+              name: userName,
+            },
+          });
+        }
+
+        console.log({ user });
+
+        // TODO: More business logic could be necesary (one off payments vs subscriptins, monthly vs yearly, credit systems...)
+
+        // save it in the database
+        await prisma.user.update({
+          where: {
+            id: user.id,
+          },
+          data: {
+            priceId: priceId,
+            productId: productId,
+            customerId: customerId,
+          },
+        });
+
+        console.log('SUCCESS!!!');
+      }
+      case 'customer.created': {
+        const session = event.data.object;
+        // console.log({ session })
+      }
+      case 'charge.succeeded': {
+        const session = event.data.object;
+      }
     }
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      { error: 'Something failed while updating plan on DB' },
+      { status: 500 }
+    );
+  }
 
-
-
-
-
-    return NextResponse.json({ url: "test" }, { status: 200 })
-
+  return NextResponse.json({ url: 'test' }, { status: 200 });
 }
-
 
 export const StripeWebhooks = {
-    AsyncPaymentSuccess: 'checkout.session.async_payment_succeeded',
-    Completed: 'checkout.session.completed', // TODO: Check what each event means exactly...
-    PaymentFailed: 'checkout.session.async_payment_failed',
-    SubscriptionDeleted: 'customer.subscription.deleted',
-    SubscriptionUpdated: 'customer.subscription.updated',
-}
+  AsyncPaymentSuccess: 'checkout.session.async_payment_succeeded',
+  Completed: 'checkout.session.completed', // TODO: Check what each event means exactly...
+  PaymentFailed: 'checkout.session.async_payment_failed',
+  SubscriptionDeleted: 'customer.subscription.deleted',
+  SubscriptionUpdated: 'customer.subscription.updated',
+};

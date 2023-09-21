@@ -1,6 +1,5 @@
 // import * as MyTypes from '@/types'
 
-
 // https://spacejelly.dev/posts/sitemaps-rss-feeds-with-next-js-app-router/
 // https://medium.com/@rwchampin/next-js-sitemap-automatically-add-dynamic-urls-to-nextjs-13-app-router-sitemap-js-cc1c38a3668e
 // https://maxleiter.com/blog/build-a-blog-with-nextjs-13
@@ -10,7 +9,7 @@
 
 //TODO: for now, the updated and priority are not shown. Update to latest nextjs to display them (and review rest of the app for breaking changes)
 
-import { getPosts } from "@/lib/posts";
+import { getPosts } from '@/lib/posts';
 import { projectUrls } from '@/lib/sitemapUrls';
 // import { generatedCities } from './(site)/(public)/tatuadores/[cityName]/page';
 // import { generatedContentSlugs } from './(site)/(public)/tatuajes/[contentSlug]/page';
@@ -21,42 +20,38 @@ import { projectUrls } from '@/lib/sitemapUrls';
 //  * @returns {MyTypes.Sitemap[]}
 //  */
 export default async function Sitemap() {
+  //     /**
+  //    * @type {MyTypes.BlogPost[]}
+  //    */
+  const allPosts = await getPosts();
 
+  // Generates the urls for the blog
+  const formattedPosts = allPosts.map((item) => ({
+    url: `https://tattuo.com/blog/${item.slug}`,
+    lastModified: item.date,
+    changeFrequency: 'weekly',
+    priority: 0.9,
+  }));
 
-    //     /**
-    //    * @type {MyTypes.BlogPost[]}
-    //    */
-    const allPosts = await getPosts()
+  // Generates the non-dynamic urls
+  const formattedProjectUrls = projectUrls.map((item) => ({
+    url: `https://tattuo.com/${item}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 1,
+  }));
 
-    // Generates the urls for the blog
-    const formattedPosts = allPosts.map((item) => ({
-        url: `https://tattuo.com/blog/${item.slug}`,
-        lastModified: item.date,
-        changeFrequency: 'weekly',
-        priority: 0.9,
+  // TODO: Add the formatted dynamic Urls
 
-    }))
-
-    // Generates the non-dynamic urls
-    const formattedProjectUrls = projectUrls.map((item) => ({
-        url: `https://tattuo.com/${item}`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly',
-        priority: 1,
-    }))
-
-    // TODO: Add the formatted dynamic Urls 
-
-
-    return [
-        {
-            url: "https://tattuo.com",
-            lastModified: new Date(),
-            changeFrequency: 'weekly',
-            priority: 1,
-        },
-        ...formattedPosts,
-        ...formattedProjectUrls,
-        // ...formattedDynamicUrls,
-    ];
+  return [
+    {
+      url: 'https://tattuo.com',
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 1,
+    },
+    ...formattedPosts,
+    ...formattedProjectUrls,
+    // ...formattedDynamicUrls,
+  ];
 }

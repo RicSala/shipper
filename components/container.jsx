@@ -1,24 +1,25 @@
-'use client'
+'use client';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 const Container = ({ className, children }) => {
-    return (
-        <div
-            className={cn(`
+  return (
+    <div
+      className={cn(
+        `
             cont
-        max-w-[2520px]
         mx-auto
-        xl:px-20
-        md:px-10
+        max-w-[2520px]
         px-4
+        md:px-10
+        xl:px-20
                        `,
-                className
-            )}
-        >
-            {children}
-        </div>
-    )
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
 };
 
 export default Container;

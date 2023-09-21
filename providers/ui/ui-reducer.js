@@ -1,7 +1,5 @@
 export const uiReducer = (state, action) => {
-
   switch (action.type) {
-
     case '[UI] - set LoginModal open':
       return {
         ...state,
@@ -19,7 +17,6 @@ export const uiReducer = (state, action) => {
         ...state,
         artistRegisterOpen: action.payload,
       };
-
 
     default:
       return state;

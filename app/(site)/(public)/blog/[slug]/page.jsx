@@ -1,65 +1,50 @@
-import { notFound } from "next/navigation";
-import PostBody from "../components/post-body";
-import { getPost, getPosts } from "@/lib/posts";
-import PostHeader from "./components/post-header";
-import Toc from "./components/toc";
-
+import { notFound } from 'next/navigation';
+import PostBody from '../components/post-body';
+import { getPost, getPosts } from '@/lib/posts';
+import PostHeader from './components/post-header';
+import Toc from './components/toc';
 
 // the posts for which we want to generate static pages
 // (we may want to generate other pages on the server...)
 export const generateStaticParams = async () => {
-    const posts = await getPosts();
-    return posts.map((post) => ({
-        slug: post.slug,
-    }))
-}
-
+  const posts = await getPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+};
 
 // generates the metadata for the page (because it's dynamic)
 // this can be done with server rendered pages too
 // TODO: generate all the medatada + sitemap + other seo things
-export const generateMetadata = async ({
-    params
-}) => {
+export const generateMetadata = async ({ params }) => {
+  const { slug } = params;
+  const post = await getPost(slug);
 
-    const { slug } = params;
-    const post = await getPost(slug)
-
-
-    if (!post) {
-        return {
-            title: 'Post not found',
-        }
-    }
-
+  if (!post) {
     return {
-        title: post.title,
-        description: post.body.substring(0, 100),
-    }
+      title: 'Post not found',
+    };
+  }
+
+  return {
+    title: post.title,
+    description: post.body.substring(0, 100),
+  };
 };
-
-
 
 // the page itself
-export default async function PostPage({
-    params
-}) {
+export default async function PostPage({ params }) {
+  const post = await getPost(params.slug);
 
-    const post = await getPost(params.slug)
+  if (!post) return notFound();
 
-    if (!post) return notFound()
+  return (
+    <div className='mx-auto flex max-w-3xl flex-col gap-2'>
+      <PostHeader post={post} />
+      <Toc headings={post.headings} />
 
-
-    return (
-        <div className="flex flex-col max-w-3xl gap-2 mx-auto">
-
-            <PostHeader post={post} />
-            <Toc headings={post.headings} />
-
-            {/* BODY */}
-            <PostBody>
-                {post.body}
-            </PostBody>
-        </div>
-    )
-};
+      {/* BODY */}
+      <PostBody>{post.body}</PostBody>
+    </div>
+  );
+}

@@ -1,29 +1,28 @@
-'use client' // Error components must be Client Components
+'use client'; // Error components must be Client Components
 
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 
 export default function Error({ error, reset }) {
+  // In server components, the message will be a generic one to avoid leaking sensitive details
+  const { message } = error;
 
-    // In server components, the message will be a generic one to avoid leaking sensitive details
-    const { message } = error
+  useEffect(() => {
+    // TODO:
+    // Log the error to an error reporting service
+    console.error(error);
+  }, [error]);
 
-    useEffect(() => {
-        // TODO:
-        // Log the error to an error reporting service
-        console.error(error)
-    }, [error])
-
-    return (
-        <div>
-            <h2>Something went wrong!</h2>
-            <button
-                onClick={
-                    // Attempt to recover by trying to re-render the segment
-                    () => reset()
-                }
-            >
-                Try again
-            </button>
-        </div>
-    )
+  return (
+    <div>
+      <h2>Something went wrong!</h2>
+      <button
+        onClick={
+          // Attempt to recover by trying to re-render the segment
+          () => reset()
+        }
+      >
+        Try again
+      </button>
+    </div>
+  );
 }
