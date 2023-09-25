@@ -48,43 +48,46 @@ function NavBar({ currentUser }) {
   // Create a navBar component that will be used in the layout.js file
   return (
     // <Container>
-    <div
-      className={`sticky top-0 z-40 w-full ${
-        scrolled ? "shadow-sm" : null
-      } bg-base-100 transition-shadow`}
-    >
-      {/* py-1 sm:py-4 sticky top-0  */}
-      <TopBar />
-      <Container>
-        <header className="mx-auto flex max-w-7xl flex-row items-center  justify-between gap-3 md:gap-0">
-          <div className="flex flex-row items-center justify-between gap-5">
-            <Logo />
+    <>
+      <TopBar clasName="sticky top-0 z-40 w-full" />
 
-            <div className="hidden sm:flex">
-              <NavMenu currentUser={currentUser} />
+      <div
+        className={`sticky top-0 z-40 w-full ${
+          scrolled ? "shadow-sm" : null
+        } bg-base-100 transition-shadow`}
+      >
+        {/* py-1 sm:py-4 sticky top-0  */}
+        <Container>
+          <header className="mx-auto flex max-w-7xl flex-row items-center  justify-between gap-3 md:gap-0">
+            <div className="flex flex-row items-center justify-between gap-5">
+              <Logo />
+
+              <div className="hidden sm:flex">
+                <NavMenu currentUser={currentUser} />
+              </div>
             </div>
-          </div>
-          <div className="flex flex-row items-center justify-center gap-2 ">
-            {currentUser ? (
-              <Avatar
-                className="cursor-pointer"
-                onClick={() => {
-                  router.push("/artist/profile");
-                }}
-              >
-                <AvatarImage src={currentUser?.image || undefined} />
-                <AvatarFallback>
-                  {getAvatarFallbackText(currentUser)}
-                </AvatarFallback>
-              </Avatar>
-            ) : null}
-            <ModeToggle userTheme={userTheme} />
-            <Sidebar className="bg-neutral" currentUser={currentUser} />
-          </div>
-        </header>
-      </Container>
-      {/* <Categories /> */}
-    </div>
+            <div className="flex flex-row items-center justify-center gap-2 ">
+              {currentUser ? (
+                <Avatar
+                  className="cursor-pointer"
+                  onClick={() => {
+                    router.push("/artist/profile");
+                  }}
+                >
+                  <AvatarImage src={currentUser?.image || undefined} />
+                  <AvatarFallback>
+                    {getAvatarFallbackText(currentUser)}
+                  </AvatarFallback>
+                </Avatar>
+              ) : null}
+              <ModeToggle userTheme={userTheme} />
+              <Sidebar className="bg-neutral" currentUser={currentUser} />
+            </div>
+          </header>
+        </Container>
+        {/* <Categories /> */}
+      </div>
+    </>
     // </Container>
   );
 }

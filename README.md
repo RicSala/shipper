@@ -66,3 +66,7 @@ https://feathericons.com/ -> https://github.com/feathericons/react-feather (this
 
 Fonts
 https://fonts.google.com/?vfquery=brico&query=bricolage&vfonly=true
+
+Inspiration:
+Logos
+https://www.fontinlogo.com/logo/product-hunt

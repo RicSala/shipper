@@ -1,17 +1,16 @@
-import AvatarGroup from '@/components/avatar-group';
-import CtaWithSocial from '@/components/cta-with-social';
-import Pricing from '@/components/landing-sections/pricing';
-import Testimonials1 from '@/components/landing-sections/testimonials';
-import CoolButton from '@/components/magic/cool-button';
-import CoolText from '@/components/magic/cool-text';
-import { Button } from '@/components/ui/button';
-import { config } from '@/shipper.config';
+import AvatarGroup from "@/components/avatar-group";
+import CtaWithSocial from "@/components/cta-with-social";
+import Pricing from "@/components/landing-sections/pricing";
+import Testimonials1 from "@/components/landing-sections/testimonials";
+import CoolButton from "@/components/magic/cool-button";
+import CoolText from "@/components/magic/cool-text";
+import { config } from "@/shipper.config";
 
-import ContactForm from '@/components/landing-sections/contact-form';
-import { Faq } from '@/components/landing-sections/faq';
-import Hero from '@/components/landing-sections/hero';
-import Hero2 from '@/components/landing-sections/hero2';
-import { Input } from '@/components/ui/input';
+import ContactForm from "@/components/landing-sections/contact-form";
+import { Faq } from "@/components/landing-sections/faq";
+import Hero from "@/components/landing-sections/hero";
+import Hero2 from "@/components/landing-sections/hero2";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -20,36 +19,39 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import Stretcher from '@/components/utils/strecher';
+} from "@/components/ui/select";
+import Stretcher from "@/components/utils/strecher";
 
-import DoodleArrow29 from '@/components/doodles/arrow-29';
-import Laurels from '@/components/social-proof/laurels';
-import { ImageGround } from '@/components/utils/images';
-import tailwindConfig from '@/tailwind.config.js';
-import resolveConfig from 'tailwindcss/resolveConfig';
+import Container from "@/components/container";
+import DoodleArrow29 from "@/components/doodles/arrow-29";
+import LogoCloud from "@/components/landing-sections/logo-cloud";
+import MediaText from "@/components/landing-sections/media-text";
+import { Pricing2 } from "@/components/landing-sections/pricing2";
+import Laurels from "@/components/social-proof/laurels";
+import tailwindConfig from "@/tailwind.config.js";
+import resolveConfig from "tailwindcss/resolveConfig";
 
 const twConfig = resolveConfig(tailwindConfig);
 const theme = twConfig.theme;
 
 const colors = [
-  'bg-primary',
-  'bg-primary-focus',
-  'bg-primary-content',
-  'bg-secondary',
-  'bg-secondary-focus',
-  'bg-secondary-content',
-  'bg-accent',
-  'bg-accent-focus',
-  'bg-accent-content',
-  'bg-neutral',
-  'bg-neutral-focus',
-  'bg-neutral-content',
-  'bg-base-100',
-  'bg-base-200',
-  'bg-base-300',
-  'bg-base-content',
-  'bg-info',
+  "bg-primary",
+  "bg-primary-focus",
+  "bg-primary-content",
+  "bg-secondary",
+  "bg-secondary-focus",
+  "bg-secondary-content",
+  "bg-accent",
+  "bg-accent-focus",
+  "bg-accent-content",
+  "bg-neutral",
+  "bg-neutral-focus",
+  "bg-neutral-content",
+  "bg-base-100",
+  "bg-base-200",
+  "bg-base-300",
+  "bg-base-content",
+  "bg-info",
 ];
 
 export default async function Home() {
@@ -58,19 +60,39 @@ export default async function Home() {
     // gap-4 sm:gap-8 md:gap-16
     // py-4 sm:py-8 md:py-16
     // https://github.com/saadeghi/daisyui/blob/master/src/theming/themes.js
-    <main className='gap flex min-h-screen flex-col items-center justify-between'>
+    <main className="gap flex min-h-screen flex-col items-center justify-between">
       {/* <TwBreaks /> */}
+
       <Hero2 />
 
-      <Laurels laurelsClasses='fill-base-content/50' />
+      <div className="-my-48">
+        <LogoCloud />
+      </div>
+      <Pricing2 />
 
-      <div className='gap relative flex flex-col'>
-        {/* animate-[bounce_2s_ease-in-out_infinite] */}
-        <DoodleArrow29
-          className={'rotate absolute left-20 top-20 h-20 w-20 '}
-        />
-        <h2>Colors</h2>
-        <div className='flex flex-wrap gap-5'>
+      <div className="flex flex-col gap-3">
+        <MediaText textFirst />
+        <MediaText textFirst={false} />
+      </div>
+      <Testimonials1 />
+
+      <Faq />
+
+      <ContactForm />
+
+      <div>
+        <h2 className="border-b-0">Doodles</h2>
+        <div className="gap relative flex flex-row flex-wrap items-center justify-center">
+          {/* animate-[bounce_2s_ease-in-out_infinite] */}
+          <div className="relative h-20 w-20">
+            <DoodleArrow29 className={"rotate absolute h-20 w-20 "} />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h2 className="border-b-0">Colors</h2>
+        <div className="flex flex-wrap gap-5">
           {colors.map((color) => (
             <div
               key={color}
@@ -82,57 +104,52 @@ export default async function Home() {
         </div>
       </div>
 
-      <h1 className='font-bricolage font-normal'>{config.general.appName}</h1>
-
       <Input />
 
-      <Stretcher className='bg-base-200 py-4 sm:py-8 md:py-16'>
-        <Pricing />
-      </Stretcher>
+      <CoolButton className="h-16 w-60">Cool Button 😎</CoolButton>
 
-      <Testimonials1 />
-
-      <CoolButton className='h-16 w-60'>Cool Button 😎</CoolButton>
+      <div>
+        this should{" "}
+        <remark className="highlight">
+          be highlight asd asdfasdfasfd erasdfasd
+        </remark>{" "}
+        fasdfasdfñalsjdflñasjd fñlasjdfñlajsf
+      </div>
 
       <CoolText>This is a pretty Awesome text!</CoolText>
 
-      <AvatarGroup className={'h-8 w-8 text-xs'} />
+      <h1 className="font-normal">{config.general.appName}</h1>
+      <Laurels laurelsClasses="fill-base-content/50" />
+
+      <AvatarGroup className={"h-8 w-8 text-xs"} />
 
       <CtaWithSocial
-        accentText={'30% de descuento'}
-        buttonLabel={'Comprar'}
-        primaryText={'a las primeras 200 compras'}
+        accentText={"30% de descuento"}
+        buttonLabel={"Comprar"}
+        primaryText={"a las primeras 200 compras"}
       />
 
-      <div
-        className='
-      text-primary-300
-      '
-      >
-        hello
-      </div>
-
-      <Button className='' variant=''>
-        destructive!
-      </Button>
+      <Stretcher className="bg-base-200 py-4 sm:py-8 md:py-16">
+        <Pricing />
+      </Stretcher>
 
       <Select>
-        <SelectTrigger className='w-[180px]'>
-          <SelectValue placeholder='Select a fruit' />
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Select a fruit" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
             <SelectLabel>Fruits</SelectLabel>
-            <SelectItem value='apple'>Apple</SelectItem>
-            <SelectItem value='banana'>Banana</SelectItem>
-            <SelectItem value='blueberry'>Blueberry</SelectItem>
-            <SelectItem value='grapes'>Grapes</SelectItem>
-            <SelectItem value='pineapple'>Pineapple</SelectItem>
+            <SelectItem value="apple">Apple</SelectItem>
+            <SelectItem value="banana">Banana</SelectItem>
+            <SelectItem value="blueberry">Blueberry</SelectItem>
+            <SelectItem value="grapes">Grapes</SelectItem>
+            <SelectItem value="pineapple">Pineapple</SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>
 
-      <select className='select select-bordered w-full max-w-xs'>
+      <select className="select select-bordered w-full max-w-xs">
         <option disabled>Pick your favorite Simpson</option>
         <option>Homer</option>
         <option>Marge</option>
@@ -141,15 +158,11 @@ export default async function Home() {
         <option>Maggie</option>
       </select>
 
-      <Stretcher className='bg-base-200'>
-        <Hero />
+      <Stretcher className="bg-base-200">
+        <Container className={"container"}>
+          <Hero className={"py-5"} />
+        </Container>
       </Stretcher>
-
-      <Faq />
-
-      <ContactForm />
-
-      <ImageGround />
     </main>
   );
 }

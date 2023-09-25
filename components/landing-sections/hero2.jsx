@@ -1,7 +1,7 @@
-import { cn } from '@/lib/utils';
-import { Video } from 'lucide-react';
-import Image from 'next/image';
-import { Button } from '../ui/button';
+import { cn } from "@/lib/utils";
+import { Video } from "lucide-react";
+import Image from "next/image";
+import { Button } from "../ui/button";
 
 export default function Hero2({ className }) {
   return (
@@ -10,47 +10,47 @@ export default function Hero2({ className }) {
         `
                     flex flex-col items-center gap-2 lg:flex-row
                     `,
-        className
+        className,
       )}
     >
-      <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
-        <div className='mx-auto max-w-2xl text-center'>
-          <h1 className='font-inter px-6 text-lg text-base-content/70'>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center">
+          <h1 className="font-inter text-base-muted-content px-6 text-lg">
             Smart email campaign builder, made for Developers
           </h1>
-          <p className='font-pj mt-5 text-4xl font-bold leading-tight text-base-content sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight'>
+          <p className="font-pj mt-5 text-4xl font-bold leading-tight text-base-content sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight">
             Turn your visitors into profitable
-            <span className='relative inline-flex sm:inline'>
-              <span className='absolute inset-0 h-full w-full bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] opacity-30 blur-lg filter'></span>
-              <span className='relative'> business </span>
+            <span className="relative inline-flex sm:inline">
+              <span className="absolute inset-0 h-full w-full bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] opacity-30 blur-lg filter"></span>
+              <span className="relative"> business </span>
             </span>
           </p>
 
-          <div className='mt-9 flex flex-wrap items-center justify-center gap-5 px-8 sm:space-x-5 sm:px-0'>
-            <Button href='#' className='flex'>
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-5 px-8 sm:space-x-5 sm:px-0">
+            <Button href="#" className="flex">
               Get more customers
             </Button>
 
-            <Button variant='outline'>
+            <Button variant="outline">
               <Video />
               Watch free demo
             </Button>
           </div>
 
-          <p className='font-inter mt-8 text-base text-base-content/70'>
+          <p className="font-inter text-base-muted-content mt-8 text-base">
             60 Days free trial · No credit card required
           </p>
         </div>
       </div>
 
-      <div className='overflow-hidden rounded-lg'>
-        <div className='mx-auto object-contain lg:mx-auto lg:max-w-6xl'>
+      <div className="overflow-hidden rounded-lg">
+        <div className="mx-auto object-contain lg:mx-auto lg:max-w-6xl">
           <Image
-            className='mx-auto'
+            className="mx-auto"
             width={700}
             height={700}
-            src='https://cdn.rareblocks.xyz/collection/clarity/images/hero/2/illustration.png'
-            alt=''
+            src="https://cdn.rareblocks.xyz/collection/clarity/images/hero/2/illustration.png"
+            alt=""
           />
         </div>
       </div>
