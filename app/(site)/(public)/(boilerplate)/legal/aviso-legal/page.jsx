@@ -1,4 +1,6 @@
-import Heading from '@/components/heading';
+import Heading from "@/components/heading";
+
+// TODO: Get proper legal pages...
 
 export const metadata = {
   title: `Aviso Legal`,
@@ -8,7 +10,7 @@ export const metadata = {
 export default function AvisoPage(props) {
   return (
     <>
-      <Heading title={'Aviso Legal'} />
+      <Heading title={"Aviso Legal"} />
       <p>
         En el presente Aviso Legal, el Usuario, podrá encontrar toda la
         información relativa a las condiciones legales que definen las

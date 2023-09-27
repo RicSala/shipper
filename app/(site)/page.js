@@ -62,7 +62,6 @@ export default async function Home() {
     // https://github.com/saadeghi/daisyui/blob/master/src/theming/themes.js
     <main className="gap flex min-h-screen flex-col items-center justify-between">
       <Hero2 />
-
       <div className="md:-my-48">
         <LogoCloud />
       </div>

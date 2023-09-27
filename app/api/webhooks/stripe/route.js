@@ -1,17 +1,15 @@
-import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../../auth/[...nextauth]/route';
-import prisma from '@/lib/prismadb';
-import { createCheckout, getStripeInstance } from '@/lib/stripe';
-import { headers } from 'next/headers';
-import { config } from '@/shipper.config';
+import prisma from "@/lib/prismadb";
+import { getStripeInstance } from "@/lib/stripe";
+import { config } from "@/shipper.config";
+import { headers } from "next/headers";
+import { NextResponse } from "next/server";
 
 export async function POST(request) {
   const stripe = await getStripeInstance();
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
   const body = await request.text();
   const headersList = headers();
-  const signature = headersList.get('stripe-signature');
+  const signature = headersList.get("stripe-signature");
 
   let event;
   try {
@@ -19,26 +17,26 @@ export async function POST(request) {
   } catch (error) {
     console.log(error);
     return NextResponse.json(
-      { error: 'Could verify signature' },
-      { status: 500 }
+      { error: "Could verify signature" },
+      { status: 500 },
     );
   }
 
   console.log(event.type);
   try {
     switch (event.type) {
-      case 'checkout.session.completed': {
+      case "checkout.session.completed": {
         const session = event.data.object;
       }
-      case 'checkout.session.completed': {
+      case "checkout.session.completed": {
         const sessionId = event.data.object.id;
         console.log(event.data.object);
         console.log({ sessionId });
         const stripe = await getStripeInstance();
         const session = await stripe.checkout.sessions.retrieve(sessionId, {
-          expand: ['line_items'],
+          expand: ["line_items"],
         });
-        console.log('this', session);
+        console.log("this", session);
         const customerId = session?.customer;
         const productId = session?.line_items?.data[0]?.price.product;
         const priceId = session?.line_items?.data[0]?.price.id;
@@ -48,14 +46,14 @@ export async function POST(request) {
         const plan = config.productIds.find((p) => p === productId);
 
         if (!plan) {
-          console.log('no se encuentra producto');
+          console.log("no se encuentra producto");
           break;
         }
 
         console.log({ plan });
         console.log({ userId });
         if (!userId && !userEmail) {
-          console.log('no se encuentra usuario');
+          console.log("no se encuentra usuario");
           break;
         }
 
@@ -94,31 +92,31 @@ export async function POST(request) {
           },
         });
 
-        console.log('SUCCESS!!!');
+        console.log("SUCCESS!!!");
       }
-      case 'customer.created': {
+      case "customer.created": {
         const session = event.data.object;
         // console.log({ session })
       }
-      case 'charge.succeeded': {
+      case "charge.succeeded": {
         const session = event.data.object;
       }
     }
   } catch (error) {
     console.log(error);
     return NextResponse.json(
-      { error: 'Something failed while updating plan on DB' },
-      { status: 500 }
+      { error: "Something failed while updating plan on DB" },
+      { status: 500 },
     );
   }
 
-  return NextResponse.json({ url: 'test' }, { status: 200 });
+  return NextResponse.json({ url: "test" }, { status: 200 });
 }
 
 export const StripeWebhooks = {
-  AsyncPaymentSuccess: 'checkout.session.async_payment_succeeded',
-  Completed: 'checkout.session.completed', // TODO: Check what each event means exactly...
-  PaymentFailed: 'checkout.session.async_payment_failed',
-  SubscriptionDeleted: 'customer.subscription.deleted',
-  SubscriptionUpdated: 'customer.subscription.updated',
+  AsyncPaymentSuccess: "checkout.session.async_payment_succeeded",
+  Completed: "checkout.session.completed", // TODO: Check what each event means exactly...
+  PaymentFailed: "checkout.session.async_payment_failed",
+  SubscriptionDeleted: "customer.subscription.deleted",
+  SubscriptionUpdated: "customer.subscription.updated",
 };

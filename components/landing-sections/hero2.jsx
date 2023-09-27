@@ -15,7 +15,7 @@ export default function Hero2({ className }) {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h1 className="font-inter text-base-muted-content px-6 text-lg">
+          <h1 className="font-inter px-6 text-lg text-base-muted-content">
             Smart email campaign builder, made for Developers
           </h1>
           <p className="font-pj mt-5 text-4xl font-bold leading-tight text-base-content sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight">
@@ -37,7 +37,7 @@ export default function Hero2({ className }) {
             </Button>
           </div>
 
-          <p className="font-inter text-base-muted-content mt-8 text-base">
+          <p className="font-inter mt-8 text-base text-base-muted-content">
             60 Days free trial · No credit card required
           </p>
         </div>

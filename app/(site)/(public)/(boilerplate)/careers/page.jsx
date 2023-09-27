@@ -1,34 +1,35 @@
-import Heading from '@/components/heading';
-import { Separator } from '@/components/ui/separator';
+import Heading from "@/components/heading";
+import ContactForm from "@/components/landing-sections/contact-form";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
-import { Computer, HeartPulse, PaletteIcon } from 'lucide-react';
-import ContactForm from '@/components/landing-sections/contact-form';
+} from "@/components/ui/accordion";
+import { Separator } from "@/components/ui/separator";
+import { config } from "@/shipper.config";
+import { Computer, HeartPulse, PaletteIcon } from "lucide-react";
 
 export default async function page({}) {
   return (
     <div>
       <Heading
-        title='¿Te unes a TATTUO?'
-        subtitle='Estamos revolucionando el día a día de los tatuadores, incorporando tecnología y marketing digital a su forma de trabajar · ¿Te apasionan el mundo digital? ¡Únete al equipo TATTUO!'
+        title={`¿Te unes a ${config.general.appName}?`}
+        subtitle="Estamos revolucionando el día a día de los tatuadores, incorporando tecnología y marketing digital a su forma de trabajar · ¿Te apasionan el mundo digital? ¡Únete al equipo TATTUO!"
       />
-      <Separator className='my-5' />
+      <Separator className="my-5" />
 
-      <div className='flex flex-col gap-5 md:gap-10'>
+      <div className="flex flex-col gap-5 md:gap-10">
         <h2>Actualmente buscamos:</h2>
 
         <Accordion
-          type='single'
+          type="single"
           collapsible
-          className='mx-auto w-full md:w-2/3 lg:w-1/2'
+          className="mx-auto w-full md:w-2/3 lg:w-1/2"
         >
-          <AccordionItem value='item-1'>
-            <AccordionTrigger className='flex justify-start gap-5'>
-              {' '}
+          <AccordionItem value="item-1">
+            <AccordionTrigger className="flex justify-start gap-5">
+              {" "}
               <PaletteIcon />
               UX Designer
             </AccordionTrigger>
@@ -45,8 +46,8 @@ export default async function page({}) {
               <p>¡Únete al equipo de UX!</p>
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem value='item-2'>
-            <AccordionTrigger className='flex justify-start gap-5'>
+          <AccordionItem value="item-2">
+            <AccordionTrigger className="flex justify-start gap-5">
               <Computer />
               Front End Developer
             </AccordionTrigger>
@@ -62,8 +63,8 @@ export default async function page({}) {
               </p>
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem value='item-3'>
-            <AccordionTrigger className='flex justify-start gap-5'>
+          <AccordionItem value="item-3">
+            <AccordionTrigger className="flex justify-start gap-5">
               <HeartPulse />
               Artist Support
             </AccordionTrigger>
@@ -85,7 +86,7 @@ export default async function page({}) {
           </AccordionItem>
         </Accordion>
 
-        <div className='mx-auto w-full md:w-2/3 lg:w-1/2'>
+        <div className="mx-auto w-full md:w-2/3 lg:w-1/2">
           <p>
             Si te apasiona el mundo de las startups y quieres formar parte de
             proyecto en expansión, ¡Te queremos conocer!

@@ -8,19 +8,19 @@ import { config } from "@/shipper.config";
 import { Bricolage_Grotesque, Inter, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+export const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
 });
 
-const roboto_mono = Roboto_Mono({
+export const roboto_mono = Roboto_Mono({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-roboto-mono",
 });
 
-const bricolage = Bricolage_Grotesque({
+export const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-bricolage",

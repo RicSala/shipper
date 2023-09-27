@@ -43,11 +43,13 @@ export default function Sidebar({ currentUser, className }) {
               setSidebarOpen(true);
             }}
           />
-          {notifications ? (
-            <div className="text-2x absolute -right-0 -top-0 flex h-4 w-4 items-center justify-center rounded-full bg-error text-white/70">
-              <p>1</p>
-            </div>
-          ) : null}
+          {
+            //notifications ? (
+            //<div className="text-2x absolute -right-0 -top-0 flex h-4 w-4 items-center justify-center rounded-full bg-error text-white/70">
+            // <p>1</p>
+            //</div>
+            //) : null
+          }
         </div>
       </SheetTrigger>
       <SheetContent className={"flex flex-col justify-start bg-base-100"}>
