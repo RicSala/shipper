@@ -61,11 +61,9 @@ export default async function Home() {
     // py-4 sm:py-8 md:py-16
     // https://github.com/saadeghi/daisyui/blob/master/src/theming/themes.js
     <main className="gap flex min-h-screen flex-col items-center justify-between">
-      {/* <TwBreaks /> */}
-
       <Hero2 />
 
-      <div className="-my-48">
+      <div className="md:-my-48">
         <LogoCloud />
       </div>
       <Pricing2 />

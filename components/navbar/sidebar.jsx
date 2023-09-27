@@ -76,34 +76,6 @@ export default function Sidebar({ currentUser, className }) {
               key={el.label}
             />
           ))}
-          {/* {
-                        currentUser?.role === 'ARTIST' ?
-                            <>
-                                <Separator className="my-1" />
-
-                                {
-                                    artistMenuItems.map((el) => (
-                                        <MenuItem
-                                            warningIcon={!currentUser?.artist?.isComplete ? el.warningIcon : null}
-                                            label={el.label}
-                                            onClick={() => {
-                                                router.push(el.url)
-                                                setSidebarOpen(false)
-                                            }} key={el.label}
-                                            onMouseEnter={() => {
-                                                router.prefetch(el.url)
-                                            }
-                                            }
-
-                                        />
-                                    ))
-                                }
-                            </>
-                            :
-                            null
-                    } */}
-          {}
-
           <Separator className="my-1" />
         </div>
         <SheetFooter className={"mt-auto"}>

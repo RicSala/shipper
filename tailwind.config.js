@@ -1,4 +1,4 @@
-const { generateBreakpoints } = require("./lib/dev-utils/twbreaks-plugin");
+// const { generateBreakpoints } = require("./lib/dev-utils/twbreaks-plugin");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -87,6 +87,6 @@ module.exports = {
   plugins: [
     require("tailwindcss-animate"),
     require("daisyui"),
-    ({ addBase, theme }) => generateBreakpoints({ addBase, theme }),
+    // ({ addBase, theme }) => generateBreakpoints({ addBase, theme }),
   ],
 };

@@ -22,7 +22,7 @@ export const config = {
 
   // ### CUSTOMER SUPPORT
   support: {
-    cripsId: "",
+    cripsId: "c597d7de-19fe-48d5-9651-928bc23f3fb8",
 
     routesWithSupport: ["/"],
   },
