@@ -66,6 +66,7 @@ export const PriceCard = ({
                 `,
         featured ? "-order-1 md:bottom-10 md:-order-none" : "",
         featured ? "border-2 border-primary" : "",
+        featured ? "shadow-xl" : "",
         className,
       )}
     >

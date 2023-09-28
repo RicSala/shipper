@@ -27,7 +27,7 @@ export default function Hero2({ className }) {
           </p>
 
           <div className="mt-9 flex flex-wrap items-center justify-center gap-5 px-8 sm:space-x-5 sm:px-0">
-            <Button href="#" className="flex">
+            <Button href="#" className="flex shadow-xl">
               Get more customers
             </Button>
 

@@ -3,6 +3,47 @@
 @tailwind utilities;
 
 @layer base {
+  /* #### MY RESET ### */
+  /*
+  Create a root stacking context
+  */
+  :root {
+    isolation: isolate;
+  }
+
+  /* Smoot scroll in anchor links */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  * {
+    @apply border-neutral;
+    /* @apply font-bricolage; */
+    @apply text-base;
+  }
+
+  /* Custom selection color */
+  *::selection {
+    @apply bg-secondary text-secondary-content;
+  }
+
+  /* Toggle display for custom light and dark elements */
+  [data-theme="dark"] .light {
+    display: none;
+  }
+  [data-theme="cupcake"] .dark {
+    display: none;
+  }
+
+  body {
+    line-height: 1.5;
+    /* TODO: Ask about this effect on fonts "Improve text rendering" */
+    /* -webkit-font-smoothing: antialiased; */
+  }
+  /* #### END OF MY RESET ### */
+
   :root {
     --gradient-colors: linear-gradient(
       -45deg,
@@ -13,21 +54,17 @@
     );
   }
 
-  .dark {
+  /* Spacing system classes */
+  .gap {
+    @apply gap-24 sm:gap-32 md:gap-80;
   }
-}
 
-/* Use the @layer directive to tell Tailwind which “bucket” a set of custom
- styles belong to. Valid layers are base, components, and utilities. 
- Wrapping any custom CSS with @layer also makes it possible to use modifiers
-  with those rules, like hover: and focus: or responsive modifiers like md: and lg:.
- */
-
-@layer base {
-  * {
-    @apply border-neutral;
-    /* @apply font-bricolage; */
-    @apply text-base;
+  /*
+  Allow percentage-based heights in the application
+*/
+  html,
+  body {
+    height: 100%;
   }
 
   body {
@@ -65,21 +102,4 @@
   p:not:first-child {
     @apply mt-6;
   }
-
-  [data-theme="dark"] .light {
-    display: none;
-  }
-
-  [data-theme="cupcake"] .dark {
-    display: none;
-  }
-
-  .gap {
-    @apply gap-24 sm:gap-32 md:gap-80;
-  }
 }
-
-/* Shadcn -> Daisy
-
-
-*/
