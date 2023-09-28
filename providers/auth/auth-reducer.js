@@ -1,7 +1,5 @@
 export const authReducer = (state, action) => {
-
   switch (action.type) {
-
     case '[AUTH] - Login':
       return {
         ...state,
@@ -30,11 +28,11 @@ export const authReducer = (state, action) => {
         ...state,
         user: {
           ...state.user,
-          boards: state.user.boards.filter((board) => board.id !== action.payload),
+          boards: state.user.boards.filter(
+            (board) => board.id !== action.payload
+          ),
         },
       };
-
-
 
     default:
       return state;

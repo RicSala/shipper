@@ -3,136 +3,103 @@
 @tailwind utilities;
 
 @layer base {
+  /* #### MY RESET ### */
+  /*
+  Create a root stacking context
+  */
   :root {
-
-    --gradient-colors: linear-gradient(-45deg, #FFA63D, #FF3D77, #338AFF, #3CF0C5);
-
-
-    --background: theme(colors.red.50);
-    --foreground: theme(colors.red.900);
-
-    --muted: theme(colors.red.500);
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --popover: theme(colors.slate.500);
-    --popover-foreground: theme(colors.slate.50);
-
-    --border: theme(colors.slate.500);
-    --input: theme(colors.slate.500);
-
-    --card: theme(colors.orange.500);
-    --card-foreground: theme(colors.orange.500);
-
-    --primary: theme(colors.orange.500);
-    --primary-foreground: theme(colors.orange.50);
-    --primary-focus: theme(colors.orange.400);
-
-    --secondary: theme(colors.orange.500);
-    --secondary-foreground: theme(colors.orange.500);
-
-    --accent: theme(colors.slate.200);
-    --accent-foreground: theme(colors.slate.700);
-
-    --destructive: theme(colors.red.500);
-    --destructive-foreground: theme(colors.red.50);
-    --destructive-focus: theme(colors.red.400);
-
-    --ring: theme(colors.purple.500);
-    --radius: 0.5rem;
-
-    --success: theme(colors.emerald.500);
-    --success-foreground: theme(colors.emerald.50);
-
-    --info: theme(colors.blue.500);
-    --info-foreground: theme(colors.blue.50);
-
-    --warning: theme(colors.orange.500);
-    --warning-foreground: theme(colors.orange.50);
-
-    --error: theme(colors.red.500);
-    --error-foreground: theme(colors.red.50);
-    --error-focus: theme(colors.red.400);
-
-    --saccent: theme(colors.purple.500);
-    --saccent-foreground: theme(colors.purple.500);
+    isolation: isolate;
   }
 
-  .dark {
-
-    --background: theme(colors.slate.900);
-    --foreground: theme(colors.slate.50);
-
-    --muted: theme(colors.red.500);
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --popover: theme(colors.orange.500);
-    --popover-foreground: theme(colors.orange.500);
-
-    --border: theme(colors.slate.800);
-    --input: theme(colors.orange.500);
-
-    --card: theme(colors.orange.500);
-    --card-foreground: theme(colors.orange.500);
-
-    --primary: theme(colors.orange.500);
-    --primary-foreground: theme(colors.orange.500);
-
-    --secondary: theme(colors.orange.500);
-    --secondary-foreground: theme(colors.orange.500);
-
-    --accent: theme(colors.purple.500);
-    --accent-foreground: theme(colors.purple.50);
-
-    --destructive: theme(colors.red.500);
-    --destructive-foreground: theme(colors.red.50);
-
-    --ring: theme(colors.red.500);
-    --radius: 0.5rem;
+  /* Smoot scroll in anchor links */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
-}
 
-/* Use the @layer directive to tell Tailwind which “bucket” a set of custom
- styles belong to. Valid layers are base, components, and utilities. 
- Wrapping any custom CSS with @layer also makes it possible to use modifiers
-  with those rules, like hover: and focus: or responsive modifiers like md: and lg:.
- */
-
-@layer base {
   * {
-    @apply border-border;
+    @apply border-neutral;
+    /* @apply font-bricolage; */
+    @apply text-base;
+  }
+
+  /* Custom selection color */
+  *::selection {
+    @apply bg-secondary text-secondary-content;
+  }
+
+  /* Toggle display for custom light and dark elements */
+  [data-theme="dark"] .light {
+    display: none;
+  }
+  [data-theme="cupcake"] .dark {
+    display: none;
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    line-height: 1.5;
+    /* TODO: Ask about this effect on fonts "Improve text rendering" */
+    /* -webkit-font-smoothing: antialiased; */
+  }
+  /* #### END OF MY RESET ### */
 
+  :root {
+    --gradient-colors: linear-gradient(
+      -45deg,
+      #ffa63d,
+      #ff3d77,
+      #338aff,
+      #3cf0c5
+    );
+  }
+
+  /* Spacing system classes */
+  .gap {
+    @apply gap-24 sm:gap-32 md:gap-80;
+  }
+
+  /*
+  Allow percentage-based heights in the application
+*/
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    /* @apply bg-base-100 text-base-content; */
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
   }
 
   h1 {
-    @apply scroll-m-20 text-4xl font-extrabold tracking-tight
+    @apply scroll-m-20 text-4xl font-extrabold tracking-tight;
   }
 
   h2 {
-    @apply scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors mt-4
+    /* @apply mt-4 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors; */
+    @apply mt-0 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors;
   }
 
   h2:first {
-    @apply mt-0
+    @apply mt-0;
   }
 
   h3 {
-    @apply scroll-m-20 text-2xl font-semibold tracking-tight
+    @apply scroll-m-20 text-2xl font-semibold tracking-tight;
   }
 
   h4 {
-    @apply scroll-m-20 text-xl font-semibold tracking-tight
+    @apply scroll-m-20 text-xl font-semibold tracking-tight;
   }
 
   p {
-    @apply leading-7
+    @apply leading-7;
   }
 
   p:not:first-child {
-    @apply mt-6
+    @apply mt-6;
   }
 }

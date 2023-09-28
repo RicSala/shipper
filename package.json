@@ -30,6 +30,8 @@
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "crisp-sdk-web": "^1.0.21",
+    "daisyui": "^3.7.6",
     "date-fns": "^2.30.0",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.19",
@@ -53,6 +55,8 @@
   },
   "devDependencies": {
     "@hookform/devtools": "^4.3.1",
+    "prettier": "^3.0.3",
+    "prettier-plugin-tailwindcss": "^0.5.4",
     "prisma": "^5.1.1"
   }
 }
