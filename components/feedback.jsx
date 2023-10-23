@@ -50,12 +50,11 @@ export default function Feedback({}) {
     <div
       onTransitionEnd={(event) => {
         if (event.propertyName === "opacity" && !isVisible) {
-          setIsDisplaying(false);
+          // setIsDisplaying(false);
         }
       }}
       className={cn(
         `animate fixed right-0 top-[300px] isolate  z-50 translate-x-full rounded-bl-lg rounded-tl-lg bg-base-300 drop-shadow-xl transition-transform duration-1000
-        md:bottom-[300px]
                 `,
         isVisible ? "translate-x-0" : "",
       )}

@@ -30,6 +30,7 @@ import { Pricing2 } from "@/components/landing-sections/pricing2";
 import Laurels from "@/components/social-proof/laurels";
 import tailwindConfig from "@/tailwind.config.js";
 import resolveConfig from "tailwindcss/resolveConfig";
+import Toasty from "@/components/toasty/Toasty";
 
 const twConfig = resolveConfig(tailwindConfig);
 const theme = twConfig.theme;
@@ -154,7 +155,7 @@ export default async function Home() {
         <option>Lisa</option>
         <option>Maggie</option>
       </select>
-
+      <Toasty />
       <Stretcher className="bg-base-200">
         <Container className={"container"}>
           <Hero className={"py-5"} />
