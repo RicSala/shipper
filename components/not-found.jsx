@@ -1,14 +1,18 @@
+"use client";
+
 import { config } from "@/shipper.config";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 export default function NotFoundSection({
   title = "Esta página no existe 🤔",
   description = `Lo sentimos, no hemos podido encontrar la página que buscas. Pero
   seguro que encuentras muchas otras cosas interesantes en ${config.general.appName}`,
   buttonText = `Volver a ${config.general.appName}`,
-  redirectUrl = "/",
 }) {
+  const router = useRouter();
+
   return (
     <section class="bg-base-100">
       <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
@@ -22,9 +26,14 @@ export default function NotFoundSection({
           <p class="mb-4 text-lg font-light text-base-muted-content">
             {description}
           </p>
-          <Link href={redirectUrl}>
-            <Button>{buttonText}</Button>
-          </Link>
+          <Button
+            onClick={
+              // go to home using the router
+              () => router.back()
+            }
+          >
+            {buttonText}
+          </Button>
         </div>
       </div>
     </section>
