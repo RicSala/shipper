@@ -1,6 +1,6 @@
 export const config = {
   general: {
-    appName: "Shipper",
+    appName: "CoverAi",
   },
 
   colors: {
