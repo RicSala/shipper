@@ -6,11 +6,11 @@
 // test credit cards: https://stripe.com/docs/testing
 // 4242424242424242 any date after today and any three digits
 
-import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../../auth/[...nextauth]/route';
-import prisma from '@/lib/prismadb';
-import { createCheckout } from '@/lib/stripe';
+import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../auth/[...nextauth]/route";
+import { createCheckout } from "@/lib/stripe";
+import prisma from "@/lib/prismadb";
 
 export async function POST(request) {
   const session = await getServerSession(authOptions);
@@ -22,7 +22,7 @@ export async function POST(request) {
   const body = await request.json();
 
   if (!body.priceId) {
-    return NextResponse.json({ error: 'Need a price ID' }, { status: 400 });
+    return NextResponse.json({ error: "Need a price ID" }, { status: 400 });
   }
 
   try {
@@ -51,8 +51,8 @@ export async function POST(request) {
   } catch (error) {
     console.log(error);
     return NextResponse.json(
-      { error: 'Error creating checout' },
-      { status: 500 }
+      { error: "Error creating checout" },
+      { status: 500 },
     );
   }
 }

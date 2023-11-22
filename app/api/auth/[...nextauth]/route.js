@@ -183,12 +183,12 @@
 
 // export { handler as GET, handler as POST }
 
-import NextAuth from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
-import EmailProvider from 'next-auth/providers/email';
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import prisma from '@/lib/prismadb';
-import { config } from '@/shipper.config';
+import NextAuth from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import EmailProvider from "next-auth/providers/email";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { config } from "@/shipper.config";
+import { prisma } from "@/lib/prismadb";
 
 export const authOptions = {
   // Set any random key in .env.local
@@ -223,6 +223,37 @@ export const authOptions = {
       from: config.email.fromNoReply,
     }),
 
+    // CredentialsProvider({
+    //   name: "credentials",
+    //   credentials: {
+    //     email: { label: "Email", type: "text", placeholder: " " },
+    //     password: { label: "Password", type: "password" },
+    //   },
+    //   async authorize(credentials) {
+    //     if (!credentials?.email || !credentials?.password) {
+    //       throw new Error("Missing credentials");
+    //     }
+
+    //     const user = await UserService.getUserByEmail(credentials.email);
+
+    //     if (!user || !user?.hashedPassword) {
+    //       throw new Error("Invalid credentials");
+    //     }
+
+    //     const isCorrectPassword = await bcrypt.compare(
+    //       credentials.password,
+    //       user.hashedPassword,
+    //     );
+
+    //     if (!isCorrectPassword) {
+    //       throw new Error("Invalid credentials");
+    //     }
+
+    //     //REVIEW: does this mean we are gonna have the whole user object in the session
+    //     return user;
+    //   },
+    // }),
+
     // EmailProvider({
     //     server: process.env.EMAIL_SERVER,
     //     from: "ricardo@google.com",
@@ -233,8 +264,8 @@ export const authOptions = {
 
   // custom pages
   pages: {
-    signIn: '/',
-    newUser: '/', // New users will be directed here on first sign in
+    signIn: "/",
+    newUser: "/", // New users will be directed here on first sign in
   },
 
   //   adapter: MongoDBAdapter(connectMongo),
@@ -247,7 +278,7 @@ export const authOptions = {
     },
   },
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
   },
   // theme: {
   //     brandColor: config.colors.main,
@@ -255,6 +286,31 @@ export const authOptions = {
   //     // It will be used in the login flow to display your logo. If you don't add it, it will look faded.
   //     logo: `https://${config.domainName}/logoAndName.png`,
   // },
+  //
+  //
+  //
+  //     // We also have "events"
+  //     // what's the difference between callbacks and events?
+  //     // callbacks modify the default behavior, events can be used to add on top of the default behavior
+  //     // async signIn(message) { /* on successful sign in */ },
+  //     // async signOut(message) { /* on signout */ },
+  //     // async createUser(message) { /* user created */ },
+  //     // async updateUser(message) { /* user updated - e.g. their email was verified */ },
+  //     // async linkAccount(message) { /* account (e.g. Twitter) linked to a user */ },
+  //     // async session(message) { /* session is active */ },
+
+  //     // https://dev.to/mfts/how-to-send-a-warm-welcome-email-with-resend-next-auth-and-react-email-576f
+  //     // events: {
+  //     //     async createUser(message) {
+  //     //       const params = {
+  //     //         user: {
+  //     //           name: message.user.name,
+  //     //           email: message.user.email,
+  //     //         },
+  //     //       };
+  //     //       await sendWelcomeEmail(params); // <-- send welcome email
+  //     //     }
+  //     //   },
 };
 
 const handler = NextAuth(authOptions);

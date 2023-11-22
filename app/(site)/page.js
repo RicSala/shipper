@@ -67,13 +67,11 @@ export default async function Home() {
         <LogoCloud />
       </div>
       <Pricing2 />
-
       <div className="flex flex-col gap-3">
         <MediaText textFirst />
         <MediaText textFirst={false} />
       </div>
       <Testimonials1 />
-
       <Faq />
 
       <ContactForm />
