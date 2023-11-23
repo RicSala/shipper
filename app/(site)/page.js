@@ -31,6 +31,8 @@ import Laurels from "@/components/social-proof/laurels";
 import tailwindConfig from "@/tailwind.config.js";
 import resolveConfig from "tailwindcss/resolveConfig";
 import Toasty from "@/components/toasty/Toasty";
+import { AnotherThing } from "@/components/utils/dev/test";
+import { Button } from "@/components/ui/button.tsx";
 
 const twConfig = resolveConfig(tailwindConfig);
 const theme = twConfig.theme;
@@ -66,6 +68,9 @@ export default async function Home() {
       <div className="md:-my-48">
         <LogoCloud />
       </div>
+      <Button variant={""}>asdf</Button>
+      {/* HACK: d.ts to get types of custom components? */}
+      <AnotherThing />
       <Pricing2 />
       <div className="flex flex-col gap-3">
         <MediaText textFirst />

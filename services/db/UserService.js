@@ -1,8 +1,8 @@
-import { prisma } from "@/lib/prismadb";
+import { db } from "@/lib/prismadb";
 
 export class UserService {
   static async settingsUpdate(userId, data) {
-    prisma.settings.update({
+    db.settings.update({
       where: {
         userId: userId,
       },
@@ -13,7 +13,7 @@ export class UserService {
   /** @param {string} email */
   static async getUserByEmail(email) {
     /** @type {import("@prisma/client").User} */
-    const user = await prisma.user.findUnique({
+    const user = await db.user.findUnique({
       where: {
         email: email,
       },
@@ -45,7 +45,7 @@ export class UserService {
     };
 
     /** @type {import("@prisma/client").User} */
-    const user = await prisma.user.create({
+    const user = await db.user.create({
       data: createInput,
     });
 
@@ -53,7 +53,7 @@ export class UserService {
   }
 
   static async getUserById(userId) {
-    const user = await prisma.user.findUnique({
+    const user = await db.user.findUnique({
       where: {
         id: userId,
       },

@@ -43,7 +43,6 @@ export const metadata = {
   referrer: "origin-when-cross-origin",
   keywords: ["Next.js", "React", "JavaScript"],
   authors: [{ name: "Seb" }, { name: "Josh", url: "https://nextjs.org" }],
-  colorScheme: "light",
   creator: "Jiachi Liu",
   publisher: "Sebastian Markbåge",
   formatDetection: {
@@ -53,12 +52,16 @@ export const metadata = {
   },
 };
 
+export const viewport = {
+  colorScheme: "light",
+};
+
 export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${roboto_mono.variable} ${bricolage.variable} `}
+      className={`${inter.variable}     ${roboto_mono.variable} ${bricolage.variable}`}
     >
       <body>
         <ThemeProvider
@@ -66,6 +69,7 @@ export default function RootLayout({ children }) {
           defaultTheme="cupcake"
           enableSystem={false}
           disableTransitionOnChange
+          storageKey="discord-theme"
         >
           <UiProvider>
             <SupportButton />

@@ -20,7 +20,7 @@ export default function NotFoundSection({
           <h1 class="mb-4 text-7xl font-extrabold tracking-tight text-base-content lg:text-9xl">
             404
           </h1>
-          <p class="mb-4 text-3xl font-bold tracking-tight text-base-content md:text-4xl">
+          <p class="mb-4 font-bricolage text-3xl font-bold tracking-tight text-base-content md:text-4xl">
             {title}
           </p>
           <p class="mb-4 text-lg font-light text-base-muted-content">

@@ -188,7 +188,7 @@ import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { config } from "@/shipper.config";
-import { prisma } from "@/lib/prismadb";
+import { db } from "@/lib/prismadb";
 
 export const authOptions = {
   // Set any random key in .env.local
@@ -260,7 +260,7 @@ export const authOptions = {
     // }),
   ],
   // New users will be saved in Database (MongoDB Atlas). Each user (model) has some fields like name, email, image, etc.. Learn more about the model type: https://next-auth.js.org/v3/adapters/models
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(db),
 
   // custom pages
   pages: {

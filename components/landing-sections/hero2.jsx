@@ -18,7 +18,7 @@ export default function Hero2({ className }) {
           <h1 className="font-inter px-6 text-lg text-base-muted-content">
             Smart email campaign builder, made for Developers
           </h1>
-          <p className="font-pj mt-5 text-4xl font-bold leading-tight text-base-content sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight">
+          <p className="font-pj mt-5 font-bricolage text-4xl font-bold font-thin leading-tight text-base-content sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight">
             Turn your visitors into profitable
             <span className="relative inline-flex sm:inline">
               <span className="absolute inset-0 h-full w-full bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] opacity-30 blur-lg filter"></span>

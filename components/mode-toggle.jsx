@@ -17,8 +17,7 @@ export function ModeToggle({ userTheme }) {
 
   React.useEffect(() => {
     userTheme === true ? setTheme("dark") : setTheme("cupcake");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userTheme]);
+  }, [setTheme, userTheme]);
 
   return (
     <DropdownMenu>
