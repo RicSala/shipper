@@ -26,7 +26,7 @@
 
   /* Custom selection color */
   *::selection {
-    @apply bg-secondary text-secondary-content;
+    @apply text-secondary-content bg-secondary;
   }
 
   /* Toggle display for custom light and dark elements */

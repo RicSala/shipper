@@ -5,7 +5,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "@/components/ui/accordion.tsx";
 import { Separator } from "@/components/ui/separator";
 import { config } from "@/shipper.config";
 import { Computer, HeartPulse, PaletteIcon } from "lucide-react";

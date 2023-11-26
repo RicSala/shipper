@@ -71,7 +71,7 @@ function NavBar({ currentUser }) {
                 <Avatar
                   className="cursor-pointer"
                   onClick={() => {
-                    router.push("/artist/profile");
+                    router.push("/profile");
                   }}
                 >
                   <AvatarImage src={currentUser?.image || undefined} />

@@ -46,7 +46,7 @@ function Toasty({ className }) {
       <div
         className={cn(
           `
-                  absolute right-0 text-[10rem] leading-10 transition-transform duration-500
+                  toasty fixed right-0 top-1/2 text-[10rem] leading-10 transition-transform duration-500
                   `,
           isShown ? "translate-x-0" : "translate-x-full",
           className,

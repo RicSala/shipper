@@ -2,5 +2,14 @@
   "extends": "next/core-web-vitals",
   "rules": {
     "no-undef": "error"
+  },
+  "env": {
+    // TODO: move this to Shipper
+    "es6": true, // This enables ES6 global variables like Promise
+    "browser": true, // If you're working with code meant to run in browsers
+    "node": true // If you're working with Node.js
+  },
+  "globals": {
+    "React": "readonly"
   }
 }

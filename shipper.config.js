@@ -48,9 +48,10 @@ export const config = {
   auth: {
     redirectAfterLoginUrl: "/dashboard",
     authMethods: {
-      credentials: false,
-      google: true,
+      // Can't use both credentials and email yet
+      credentials: true,
       email: true,
+      google: true,
     },
   },
 

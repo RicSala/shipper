@@ -31,8 +31,12 @@ model User {
   // RELATIONS
 
   // messages Message[]
-  settings Settings?
-  Account  Account[]
+  settings  Settings?
+  Account   Account[]
+  Proposals Proposal[]
+
+  upvotes Upvote[]
+  Teacher Teacher?
 }
 
 model Settings {
@@ -51,6 +55,7 @@ model Settings {
 enum UserRole {
   ADMIN
   USER
+  TEACHER
 }
 
 model Account {
@@ -70,6 +75,7 @@ model Account {
   // RELATIONS
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  // CONSTRAINTS
   @@unique([provider, providerAccountId]) // the combination of provider and providerAccountId must be unique
 }
 
@@ -81,14 +87,66 @@ model VerificationToken {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
+  // CONSTRAINTS
   @@unique([identifier, token])
 }
 
-// model VerificationToken {
-//   identifier String   @id @default(cuid()) @map("_id")
-//   token      String   @unique
-//   expires    DateTime
+model Teacher {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-//   // @@unique([identifier, token]) //TODO: Not sure if modifying this is the best idea, could get spammed. Let's try.
-//   @@unique([identifier, token]) 
-// }
+  // Teacher fields
+  name  String
+  email String
+  image String
+  bio   String
+
+  // RELATIONS
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String    @unique @db.ObjectId
+  // courses Course[]
+  Proposal   Proposal? @relation(fields: [proposalId], references: [id])
+  proposalId String?   @db.ObjectId
+}
+
+// Courses proposals are created by users (teachers or not)
+model Proposal {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // RELATIONS
+  teachers Teacher[]
+
+  // Course fields
+  teacherId        String  @unique @db.ObjectId
+  name             String
+  image            String
+  shortDescription String
+  htmlDescription  String
+  proposer         User?   @relation(fields: [proposerId], references: [id])
+  proposerId       String? @db.ObjectId
+
+  // Upvotes
+  Upvote Upvote[]
+}
+
+// Users can upvote a proposals
+model Upvote {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // RELATIONS
+  proposal   Proposal @relation(fields: [proposalId], references: [id], onDelete: Cascade)
+  proposalId String   @db.ObjectId
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @db.ObjectId
+
+  // CONSTRAINTS
+  @@unique([proposalId, userId])
+}
+
+// 

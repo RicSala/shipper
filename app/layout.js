@@ -7,6 +7,7 @@ import { UiProvider } from "@/providers/ui/ui-provider";
 import { config } from "@/shipper.config";
 import { Bricolage_Grotesque, Inter, Roboto_Mono } from "next/font/google";
 import "./globals.css";
+import { SessionProvider } from "@/providers/session-provider";
 
 export const inter = Inter({
   subsets: ["latin"],
@@ -58,28 +59,30 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${inter.variable}     ${roboto_mono.variable} ${bricolage.variable}`}
-    >
-      <body>
-        <ThemeProvider
-          // attribute="class"
-          defaultTheme="cupcake"
-          enableSystem={false}
-          disableTransitionOnChange
-          storageKey="discord-theme"
-        >
-          <UiProvider>
-            <SupportButton />
-            <Feedback />
-            <LoginModal />
-            {children}
-          </UiProvider>
-          <Toaster />
-        </ThemeProvider>
-      </body>
-    </html>
+    <SessionProvider>
+      <html
+        lang="en"
+        suppressHydrationWarning
+        className={`${inter.variable}     ${roboto_mono.variable} ${bricolage.variable}`}
+      >
+        <body>
+          <ThemeProvider
+            // attribute="class"
+            defaultTheme="cupcake"
+            enableSystem={false}
+            disableTransitionOnChange
+            storageKey="discord-theme"
+          >
+            <UiProvider>
+              <SupportButton />
+              <Feedback />
+              <LoginModal />
+              {children}
+            </UiProvider>
+            <Toaster />
+          </ThemeProvider>
+        </body>
+      </html>
+    </SessionProvider>
   );
 }

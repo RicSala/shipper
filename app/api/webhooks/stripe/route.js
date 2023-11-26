@@ -113,7 +113,7 @@ export async function POST(request) {
   return NextResponse.json({ url: "test" }, { status: 200 });
 }
 
-export const StripeWebhooks = {
+const StripeWebhooks = {
   AsyncPaymentSuccess: "checkout.session.async_payment_succeeded",
   Completed: "checkout.session.completed", // TODO: Check what each event means exactly...
   PaymentFailed: "checkout.session.async_payment_failed",

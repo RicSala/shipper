@@ -1,11 +1,14 @@
 // const { generateBreakpoints } = require("./lib/dev-utils/twbreaks-plugin");
 
+const { generateBreakpoints } = require("./lib/dev-utils/twbreaks-plugin");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   // darkMode: ["class"],
   content: [
     "./pages/**/*.{js,jsx}",
     "./components/**/*.{js,jsx}",
+    "./components/**/*.{ts,tsx}",
     "./app/**/*.{js,jsx}",
     "./src/**/*.{js,jsx}",
     "./stories/**/*.{js,ts,jsx,tsx}",
@@ -87,6 +90,6 @@ module.exports = {
   plugins: [
     require("tailwindcss-animate"),
     require("daisyui"),
-    // ({ addBase, theme }) => generateBreakpoints({ addBase, theme }),
+    ({ addBase, theme }) => generateBreakpoints({ addBase, theme }),
   ],
 };
